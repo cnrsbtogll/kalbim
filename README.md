@@ -2,6 +2,8 @@
 
 Kalbinizin kontrolü avucunuzda olsun.
 
-Dilediğiniz zaman, dilediğiniz yerde EKG nizi çekin ve uzman doktorlara gönderin.
+Dilediğiniz zaman, dilediğiniz yerde EKG çekin,
+
+Uzman doktorlara gönderin,
 
 Sonucunuz anında cebinize gelsin.
