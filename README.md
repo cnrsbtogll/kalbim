@@ -1,6 +1,4 @@
-# kalbim
-
-Kalbinizin kontrolü avucunuzda olsun.
+# Kalbinizin Kontrolü Avucunuzda 
 
 Dilediğiniz zaman, dilediğiniz yerde EKG çekin,
 
