@@ -1,0 +1,6 @@
+git push origin enesBranch
+git commit -m "Enesyapmaz"
+git log -3
+git add fileName
+git pull origin enesBranch  --allow-unrelated-histories
+git fetch origin master:master
