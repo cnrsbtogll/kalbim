@@ -1,6 +1,8 @@
-git push origin enesBranch
-git commit -m "Enesyapmaz"
-git log -3
-git add fileName
-git pull origin enesBranch  --allow-unrelated-histories
-git fetch origin master:master
+git pull origin enesBranch  --allow-unrelated-histories (verilen branch'de ki değişiklikleri yerel e uygular)
+git fetch origin master:master (master'ın son halini yerel e indirir)
+git add fileName (yerelde değişiklik yapılan veya yeni eklenen dosyayı remote 'a göndermek için ekler)
+git commit -m "Enesyapmaz" (Çift tırnak arasına yazılan ifade başlığıyla bir commit oluşturur)
+git log -3 (Son 3 action ney ise onu getirir)
+git push origin enesBranch (verilen branch e yereldeki değişiklikleri push eder)
+git reset --hard HEAD  (yerelde yapılan değişiklikleri silmek için kulanılır.)
+$ git merge FETCH_HEAD (bizim yereldeki master dalımıza projenin güncel halini ekledik. Yereldeki master dalının adı head.)
