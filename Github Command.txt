@@ -5,4 +5,4 @@ git commit -m "Enesyapmaz" (Çift tırnak arasına yazılan ifade başlığıyla
 git log -3 (Son 3 action ney ise onu getirir)
 git push origin enesBranch (verilen branch e yereldeki değişiklikleri push eder)
 git reset --hard HEAD  (yerelde yapılan değişiklikleri silmek için kulanılır.)
-$ git merge FETCH_HEAD (bizim yereldeki master dalımıza projenin güncel halini ekledik. Yereldeki master dalının adı head.)
+git merge FETCH_HEAD (bizim yereldeki master dalımıza projenin güncel halini ekledik. Yereldeki master dalının adı head.)
