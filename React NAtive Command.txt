@@ -1,0 +1,11 @@
+npm start -- --reset-cache  cache i temizlemek için
+
+npm install
+yarn install ikiside node modül klasörü kurar.
+react-native install
+
+npm install --save native-base@2.12.1
+npm i --save native-base@2.12.1
+yarn add native-base@2.12.1   paket kurmak için
+
+myProject/android> ./gradlew clean android gradle temizlemek için
