@@ -10,20 +10,18 @@
 
 'use strict';
 
-const Platform = require('Platform');
-const React = require('React');
-const StyleSheet = require('StyleSheet');
-const View = require('View');
+const Platform = require('../../Utilities/Platform');
+const React = require('react');
+const StyleSheet = require('../../StyleSheet/StyleSheet');
+const View = require('../View/View');
 
-const RCTActivityIndicatorViewNativeComponent = require('RCTActivityIndicatorViewNativeComponent');
+import type {NativeComponent} from '../../Renderer/shims/ReactNative';
+import type {ViewProps} from '../View/ViewPropTypes';
 
-import type {NativeComponent} from 'ReactNative';
-import type {ViewProps} from 'ViewPropTypes';
-
-const RCTActivityIndicator =
+const PlatformActivityIndicator =
   Platform.OS === 'android'
-    ? require('ProgressBarAndroid')
-    : RCTActivityIndicatorViewNativeComponent;
+    ? require('../ProgressBarAndroid/ProgressBarAndroid')
+    : require('./ActivityIndicatorViewNativeComponent').default;
 
 const GRAY = '#999999';
 
@@ -70,15 +68,18 @@ type Props = $ReadOnly<{|
  * See http://facebook.github.io/react-native/docs/activityindicator.html
  */
 const ActivityIndicator = (props: Props, forwardedRef?: any) => {
-  const {onLayout, style, ...restProps} = props;
+  const {onLayout, style, size, ...restProps} = props;
   let sizeStyle;
+  let sizeProp;
 
-  switch (props.size) {
+  switch (size) {
     case 'small':
       sizeStyle = styles.sizeSmall;
+      sizeProp = 'small';
       break;
     case 'large':
       sizeStyle = styles.sizeLarge;
+      sizeProp = 'large';
       break;
     default:
       sizeStyle = {height: props.size, width: props.size};
@@ -89,6 +90,10 @@ const ActivityIndicator = (props: Props, forwardedRef?: any) => {
     ...restProps,
     ref: forwardedRef,
     style: sizeStyle,
+    size: sizeProp,
+  };
+
+  const androidProps = {
     styleAttr: 'Normal',
     indeterminate: true,
   };
@@ -100,9 +105,12 @@ const ActivityIndicator = (props: Props, forwardedRef?: any) => {
         styles.container,
         style,
       )}>
-      {/* $FlowFixMe(>=0.78.0 site=react_native_android_fb) This issue was
-        * found when making Flow check .android.js files. */}
-      <RCTActivityIndicator {...nativeProps} />
+      {Platform.OS === 'android' ? (
+        // $FlowFixMe Flow doesn't know when this is the android component
+        <PlatformActivityIndicator {...nativeProps} {...androidProps} />
+      ) : (
+        <PlatformActivityIndicator {...nativeProps} />
+      )}
     </View>
   );
 };

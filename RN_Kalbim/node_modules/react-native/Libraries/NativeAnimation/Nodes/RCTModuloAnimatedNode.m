@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTModuloAnimatedNode.h"
+#import <React/RCTModuloAnimatedNode.h>
 
 @implementation RCTModuloAnimatedNode
 
@@ -15,7 +15,8 @@
   NSNumber *inputNode = self.config[@"input"];
   NSNumber *modulus = self.config[@"modulus"];
   RCTValueAnimatedNode *parent = (RCTValueAnimatedNode *)[self.parentNodes objectForKey:inputNode];
-  self.value = fmodf(parent.value, modulus.floatValue);
+  const float m = modulus.floatValue;
+  self.value = fmodf(fmodf(parent.value, m) + m, m);
 }
 
 @end

@@ -1,14 +1,12 @@
-import React, {Component} from 'react';
-import {KeyboardAvoidingView} from 'react-native'
-import Router from './src/Router';
+import React, { Component } from 'react'
+import Logout from './src/screens/Logout'
 
-export default class App extends Component{
-  render(){
-    return(
-      <KeyboardAvoidingView behavior="padding">
-        <Router/>
-      </KeyboardAvoidingView>
-      
+export default class App extends Component {
+  render() {
+    return (
+      <Logout/>
     )
   }
 }
+
+

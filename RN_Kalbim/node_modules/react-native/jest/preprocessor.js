@@ -12,15 +12,10 @@
 
 'use strict';
 
-const {transformSync: babelTransformSync} = require('@babel/core');
-/* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
- * found when Flow v0.54 was deployed. To see the error delete this comment and
- * run Flow. */
 const babelRegisterOnly = require('metro-babel-register');
-/* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
- * found when Flow v0.54 was deployed. To see the error delete this comment and
- * run Flow. */
 const createCacheKeyFunction = require('fbjs-scripts/jest/createCacheKeyFunction');
+
+const {transformSync: babelTransformSync} = require('@babel/core');
 const generate = require('@babel/generator').default;
 
 const nodeFiles = new RegExp(
@@ -34,7 +29,7 @@ babelRegisterOnly([]);
 
 const transformer = require('metro-react-native-babel-transformer');
 module.exports = {
-  process(src /*: string */, file /*: string */) {
+  process(src /*: string */, file /*: string */) /*: string */ {
     if (nodeFiles.test(file)) {
       // node specific transforms only
       return babelTransformSync(src, {
@@ -117,9 +112,9 @@ module.exports = {
     ).code;
   },
 
-  getCacheKey: createCacheKeyFunction([
+  getCacheKey: (createCacheKeyFunction([
     __filename,
     require.resolve('metro-react-native-babel-transformer'),
     require.resolve('@babel/core/package.json'),
-  ]),
+  ]) /*: any */),
 };

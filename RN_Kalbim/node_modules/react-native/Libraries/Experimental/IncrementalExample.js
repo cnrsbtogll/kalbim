@@ -21,15 +21,12 @@ const {
   View,
 } = ReactNative;
 
-const Incremental = require('Incremental');
-const IncrementalGroup = require('IncrementalGroup');
-const IncrementalPresenter = require('IncrementalPresenter');
+const Incremental = require('./Incremental');
+const IncrementalGroup = require('./IncrementalGroup');
+const IncrementalPresenter = require('./IncrementalPresenter');
 
-const JSEventLoopWatchdog = require('JSEventLoopWatchdog');
+const JSEventLoopWatchdog = require('../Interaction/JSEventLoopWatchdog');
 
-/* $FlowFixMe(>=0.54.0 site=react_native_oss) This comment suppresses an error
- * found when Flow v0.54 was deployed. To see the error delete this comment and
- * run Flow. */
 const performanceNow = require('fbjs/lib/performanceNow');
 
 InteractionManager.setDeadline(1000);
@@ -96,8 +93,9 @@ function Block(props: Object) {
 const Row = (props: Object) => <View style={styles.row} {...props} />;
 
 class IncrementalExample extends React.Component<mixed, {stats: ?Object}> {
-  static title = '<Incremental*>';
-  static description = 'Enables incremental rendering of complex components.';
+  static title: string = '<Incremental*>';
+  static description: string =
+    'Enables incremental rendering of complex components.';
   start: number;
   constructor(props: mixed, context: mixed) {
     super(props, context);

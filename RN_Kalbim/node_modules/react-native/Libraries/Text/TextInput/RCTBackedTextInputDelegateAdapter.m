@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTBackedTextInputDelegateAdapter.h"
+#import <React/RCTBackedTextInputDelegateAdapter.h>
 
 #pragma mark - RCTBackedTextFieldDelegateAdapter (for UITextField)
 
@@ -211,6 +211,15 @@ static void *TextFieldSelectionObservingContext = &TextFieldSelectionObservingCo
 - (void)textViewDidChangeSelection:(__unused UITextView *)textView
 {
   [self textViewProbablyDidChangeSelection];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  if ([_backedTextInputView.textInputDelegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+    [_backedTextInputView.textInputDelegate scrollViewDidScroll:scrollView];
+  }
 }
 
 #pragma mark - Public Interface

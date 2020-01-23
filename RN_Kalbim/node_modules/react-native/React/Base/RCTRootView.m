@@ -343,13 +343,13 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 
   _intrinsicContentSize = intrinsicContentSize;
 
-  [self invalidateIntrinsicContentSize];
-  [self.superview setNeedsLayout];
-
   // Don't notify the delegate if the content remains invisible or its size has not changed
   if (bothSizesHaveAZeroDimension || sizesAreEqual) {
     return;
   }
+  
+  [self invalidateIntrinsicContentSize];
+  [self.superview setNeedsLayout];
 
   [_delegate rootViewDidChangeIntrinsicSize:self];
 }
@@ -372,11 +372,6 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
   [_contentView invalidate];
 }
 
-- (void)cancelTouches
-{
-  [[_contentView touchHandler] cancel];
-}
-
 @end
 
 @implementation RCTRootView (Deprecated)
@@ -385,6 +380,12 @@ RCT_NOT_IMPLEMENTED(- (instancetype)initWithCoder:(NSCoder *)aDecoder)
 {
   RCTLogWarn(@"Calling deprecated `[-RCTRootView intrinsicSize]`.");
   return self.intrinsicContentSize;
+}
+
+- (void)cancelTouches
+{
+  RCTLogWarn(@"`-[RCTRootView cancelTouches]` is deprecated and will be deleted soon.");
+  [[_contentView touchHandler] cancel];
 }
 
 @end

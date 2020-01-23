@@ -10,13 +10,8 @@
 
 'use strict';
 
-const React = require('React');
-const TextAncestor = require('TextAncestor');
-const ViewNativeComponent = require('ViewNativeComponent');
-
-const invariant = require('invariant');
-
-import type {ViewProps} from 'ViewPropTypes';
+import type {ViewProps} from './ViewPropTypes';
+import type {ViewNativeComponentType} from './ViewNativeComponent';
 
 export type Props = ViewProps;
 
@@ -27,29 +22,5 @@ export type Props = ViewProps;
  *
  * @see http://facebook.github.io/react-native/docs/view.html
  */
-
-let ViewToExport = ViewNativeComponent;
-if (__DEV__) {
-  if (!global.__RCTProfileIsProfiling) {
-    const View = (
-      props: Props,
-      forwardedRef: React.Ref<typeof ViewNativeComponent>,
-    ) => {
-      return (
-        <TextAncestor.Consumer>
-          {hasTextAncestor => {
-            invariant(
-              !hasTextAncestor,
-              'Nesting of <View> within <Text> is not currently supported.',
-            );
-            return <ViewNativeComponent {...props} ref={forwardedRef} />;
-          }}
-        </TextAncestor.Consumer>
-      );
-    };
-    ViewToExport = React.forwardRef(View);
-    ViewToExport.displayName = 'View';
-  }
-}
-
-module.exports = ((ViewToExport: $FlowFixMe): typeof ViewNativeComponent);
+module.exports = (require('./ViewNativeComponent')
+  .default: ViewNativeComponentType);

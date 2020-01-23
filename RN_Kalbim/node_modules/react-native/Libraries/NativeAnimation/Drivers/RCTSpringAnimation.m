@@ -5,15 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTSpringAnimation.h"
+#import <React/RCTSpringAnimation.h>
 
 #import <UIKit/UIKit.h>
 
 #import <React/RCTConvert.h>
 #import <React/RCTDefines.h>
 
-#import "RCTAnimationUtils.h"
-#import "RCTValueAnimatedNode.h"
+#import <React/RCTAnimationUtils.h>
+#import <React/RCTValueAnimatedNode.h>
 
 @interface RCTSpringAnimation ()
 
@@ -113,14 +113,12 @@ RCT_NOT_IMPLEMENTED(- (instancetype)init)
   }
 
   // calculate delta time
-  NSTimeInterval deltaTime;
   if(_animationStartTime == -1) {
     _t = 0.0;
     _animationStartTime = currentTime;
-    deltaTime = 0.0;
   } else {
     // Handle frame drops, and only advance dt by a max of MAX_DELTA_TIME
-    deltaTime = MIN(MAX_DELTA_TIME, currentTime - _animationCurrentTime);
+    NSTimeInterval deltaTime = MIN(MAX_DELTA_TIME, currentTime - _animationCurrentTime);
     _t = _t + deltaTime / RCTAnimationDragCoefficient();
   }
 

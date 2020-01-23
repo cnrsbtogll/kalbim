@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-#import "RCTTextAttributes.h"
+#import <React/RCTTextAttributes.h>
 
 #import <React/RCTAssert.h>
 #import <React/RCTFont.h>
@@ -37,7 +37,7 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
 
 - (void)applyTextAttributes:(RCTTextAttributes *)textAttributes
 {
-  // Note: All lines marked with `*` does not use explicit/correct rules to compare old and new values becuase
+  // Note: All lines marked with `*` does not use explicit/correct rules to compare old and new values because
   // their types do not have special designated value representing undefined/unspecified/inherit meaning.
   // We will address this in the future.
 
@@ -79,6 +79,44 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
   _textTransform = textAttributes->_textTransform != RCTTextTransformUndefined ? textAttributes->_textTransform : _textTransform;
 }
 
+- (NSParagraphStyle *)effectiveParagraphStyle
+{
+  // Paragraph Style
+  NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+  BOOL isParagraphStyleUsed = NO;
+  if (_alignment != NSTextAlignmentNatural) {
+    NSTextAlignment alignment = _alignment;
+    if (_layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
+      if (alignment == NSTextAlignmentRight) {
+        alignment = NSTextAlignmentLeft;
+      } else if (alignment == NSTextAlignmentLeft) {
+        alignment = NSTextAlignmentRight;
+      }
+    }
+    
+    paragraphStyle.alignment = alignment;
+    isParagraphStyleUsed = YES;
+  }
+  
+  if (_baseWritingDirection != NSWritingDirectionNatural) {
+    paragraphStyle.baseWritingDirection = _baseWritingDirection;
+    isParagraphStyleUsed = YES;
+  }
+  
+  if (!isnan(_lineHeight)) {
+    CGFloat lineHeight = _lineHeight * self.effectiveFontSizeMultiplier;
+    paragraphStyle.minimumLineHeight = lineHeight;
+    paragraphStyle.maximumLineHeight = lineHeight;
+    isParagraphStyleUsed = YES;
+  }
+  
+  if (isParagraphStyleUsed) {
+    return [paragraphStyle copy];
+  }
+  
+  return nil;
+}
+
 - (NSDictionary<NSAttributedStringKey, id> *)effectiveTextAttributes
 {
   NSMutableDictionary<NSAttributedStringKey, id> *attributes =
@@ -107,35 +145,8 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
   }
 
   // Paragraph Style
-  NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
-  BOOL isParagraphStyleUsed = NO;
-  if (_alignment != NSTextAlignmentNatural) {
-    NSTextAlignment alignment = _alignment;
-    if (_layoutDirection == UIUserInterfaceLayoutDirectionRightToLeft) {
-      if (alignment == NSTextAlignmentRight) {
-        alignment = NSTextAlignmentLeft;
-      } else if (alignment == NSTextAlignmentLeft) {
-        alignment = NSTextAlignmentRight;
-      }
-    }
-
-    paragraphStyle.alignment = alignment;
-    isParagraphStyleUsed = YES;
-  }
-
-  if (_baseWritingDirection != NSWritingDirectionNatural) {
-    paragraphStyle.baseWritingDirection = _baseWritingDirection;
-    isParagraphStyleUsed = YES;
-  }
-
-  if (!isnan(_lineHeight)) {
-    CGFloat lineHeight = _lineHeight * self.effectiveFontSizeMultiplier;
-    paragraphStyle.minimumLineHeight = lineHeight;
-    paragraphStyle.maximumLineHeight = lineHeight;
-    isParagraphStyleUsed = YES;
-  }
-
-  if (isParagraphStyleUsed) {
+  NSParagraphStyle *paragraphStyle = [self effectiveParagraphStyle];
+  if (paragraphStyle) {
     attributes[NSParagraphStyleAttributeName] = paragraphStyle;
   }
 
@@ -159,7 +170,7 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
   }
 
   // Shadow
-  if (!CGSizeEqualToSize(_textShadowOffset, CGSizeZero)) {
+  if (!isnan(_textShadowRadius)) {
     NSShadow *shadow = [NSShadow new];
     shadow.shadowOffset = _textShadowOffset;
     shadow.shadowBlurRadius = _textShadowRadius;
@@ -252,6 +263,9 @@ NSString *const RCTTextAttributesTagAttributeName = @"RCTTextAttributesTagAttrib
 
 - (BOOL)isEqual:(RCTTextAttributes *)textAttributes
 {
+  if (!textAttributes) {
+    return NO;
+  }
   if (self == textAttributes) {
     return YES;
   }

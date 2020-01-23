@@ -13,17 +13,18 @@
 
 'use strict';
 
-const React = require('React');
-const ReactNative = require('ReactNative');
-const StyleSheet = require('StyleSheet');
-const View = require('View');
-const processColor = require('processColor');
-const RCTPickerNativeComponent = require('RCTPickerNativeComponent');
+const RCTPickerNativeComponent = require('./RCTPickerNativeComponent');
+const React = require('react');
+const ReactNative = require('../../Renderer/shims/ReactNative');
+const StyleSheet = require('../../StyleSheet/StyleSheet');
+const View = require('../View/View');
 
-import type {SyntheticEvent} from 'CoreEventTypes';
-import type {ColorValue} from 'StyleSheetTypes';
-import type {ViewProps} from 'ViewPropTypes';
-import type {TextStyleProp} from 'StyleSheet';
+const processColor = require('../../StyleSheet/processColor');
+
+import type {TextStyleProp} from '../../StyleSheet/StyleSheet';
+import type {ColorValue} from '../../StyleSheet/StyleSheetTypes';
+import type {SyntheticEvent} from '../../Types/CoreEventTypes';
+import type {ViewProps} from '../View/ViewPropTypes';
 
 type PickerIOSChangeEvent = SyntheticEvent<
   $ReadOnly<{|
@@ -74,37 +75,39 @@ type ItemProps = $ReadOnly<{|
   color?: ?ColorValue,
 |}>;
 
-const PickerIOSItem = (props: ItemProps) => {
+const PickerIOSItem = (props: ItemProps): null => {
   return null;
 };
 
 class PickerIOS extends React.Component<Props, State> {
   _picker: ?React.ElementRef<RCTPickerIOSType> = null;
 
-  state = {
+  state: State = {
     selectedIndex: 0,
     items: [],
   };
 
-  static Item = PickerIOSItem;
+  static Item: (props: ItemProps) => null = PickerIOSItem;
 
   static getDerivedStateFromProps(props: Props): State {
     let selectedIndex = 0;
     const items = [];
-    React.Children.toArray(props.children).forEach(function(child, index) {
-      if (child.props.value === props.selectedValue) {
-        selectedIndex = index;
-      }
-      items.push({
-        value: child.props.value,
-        label: child.props.label,
-        textColor: processColor(child.props.color),
+    React.Children.toArray(props.children)
+      .filter(child => child !== null)
+      .forEach(function(child, index) {
+        if (child.props.value === props.selectedValue) {
+          selectedIndex = index;
+        }
+        items.push({
+          value: child.props.value,
+          label: child.props.label,
+          textColor: processColor(child.props.color),
+        });
       });
-    });
     return {selectedIndex, items};
   }
 
-  render() {
+  render(): React.Node {
     return (
       <View style={this.props.style}>
         <RCTPickerNativeComponent
