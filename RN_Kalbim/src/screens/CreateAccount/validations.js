@@ -1,15 +1,15 @@
 import * as Yup from "yup";
 
 const validations = Yup.object().shape({
-	phone: Yup
+	Telefon: Yup
 		.string()
 		.required(),
-	password: Yup
+	Şifre: Yup
 		.string()
 		.required(),
 	passwordConfirm: Yup
 		.string()
-		.oneOf([Yup.ref('password')], 'Passwords not matched.')
+		.oneOf([Yup.ref('password')], 'Şifre eşleşmedi.')
 		.required()
 });
 

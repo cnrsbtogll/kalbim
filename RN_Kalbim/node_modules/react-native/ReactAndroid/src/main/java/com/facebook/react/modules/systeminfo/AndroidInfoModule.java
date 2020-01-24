@@ -92,7 +92,7 @@ public class AndroidInfoModule extends ReactContextBaseJavaModule implements Tur
 
   private Boolean isRunningScreenshotTest() {
     try {
-      Class.forName("android.support.test.rule.ActivityTestRule");
+      Class.forName("androidx.test.rule.ActivityTestRule");
       return true;
     } catch (ClassNotFoundException ignored) {
       return false;
