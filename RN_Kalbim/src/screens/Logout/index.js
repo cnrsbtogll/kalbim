@@ -23,7 +23,7 @@ export default class Logout extends Component {
                     <MyButton 
                     text="Google ile Bağlan"
                     color={colors.white}
-                    backgroundColor={colors.boxcolor}/>
+                    backgroundColor={colors.redgoogleloginbutton}/>
                     <MyButton 
                     text="Hesap Oluştur"
                     color={colors.bluebackground}
