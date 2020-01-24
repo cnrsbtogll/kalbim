@@ -104,11 +104,13 @@ export default class CreateAccountForm extends Component {
                 )}
               </Item>
 
-              <Button
+              <Button rounded
                 block
                 disabled={!isValid || isSubmitting}
                 onPress={handleSubmit}
-                style={{marginTop: 10,backgroundColor:colors.blueloginbutton}}>
+                style={{
+                  marginTop: 10,backgroundColor:colors.blueloginbutton, 
+                  }}>
                 {isSubmitting && <Spinner size={'small'} color={'white'} />}
                 <Text>Giriş</Text>
               </Button>
@@ -117,8 +119,8 @@ export default class CreateAccountForm extends Component {
         </Formik>
       <View style={styles.wrapper2}>
         <Text style={styles.text}>veya</Text>
-        <Button 
-          block info
+        <Button rounded
+          block 
           style={{marginTop: 10,backgroundColor:colors.blueloginbutton}}
         >
             <Text>Zaten bir hesabım var</Text>
@@ -140,6 +142,6 @@ const styles=StyleSheet.create({
   },
   text:{
     color:colors.white,
-    marginBottom:15
+    alignSelf:'center'
   }
 })
