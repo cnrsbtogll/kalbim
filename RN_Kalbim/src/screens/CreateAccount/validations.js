@@ -3,14 +3,14 @@ import * as Yup from "yup";
 const validations = Yup.object().shape({
 	Telefon: Yup
 		.string()
-		.required(),
+		.required('zorunludur'),
 	Şifre: Yup
 		.string()
-		.required(),
+		.required('zorunludur'),
 	passwordConfirm: Yup
 		.string()
 		.oneOf([Yup.ref('password')], 'Şifre eşleşmedi.')
-		.required()
+		.required('zorunludur')
 });
 
 module.exports = validations;
