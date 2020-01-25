@@ -5,8 +5,8 @@ import CreateAccount from './src/screens/CreateAccount'
 export default class App extends Component {
   render() {
     return (
-      <CreateAccount/>
-     // <Logout/>
+      //<CreateAccount/>
+      <Logout/>
     )
   }
 }

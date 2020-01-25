@@ -2,8 +2,12 @@ import React, {Component} from 'react';
 import MyButton from '../../components/MyButton';
 import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 import colors from '../../styles/colors';
+import { Icon } from 'native-base'
 
 export default class Logout extends Component {
+  onLoginPress(){
+    alert('login buton pressed');
+  }
   render() {
     return (
       <SafeAreaView style={styles.wrapper}>
@@ -16,21 +20,26 @@ export default class Logout extends Component {
             text={'Giriş Yap'}
             color={colors.white}
             backgroundColor={colors.blueloginbutton}
+            icon={<Icon name="log-in" style={{ color: colors.white }}/> }
+            handleOnPress={this.onLoginPress}
           />
           <MyButton
             text="Facebook ile Bağlan"
             color={colors.white}
             backgroundColor={colors.bluefacebookloginbutton}
+            icon={<Icon type="FontAwesome" name="facebook-f" style={{ color: colors.white }}/> }
           />
           <MyButton
             text="Google ile Bağlan"
             color={colors.white}
             backgroundColor={colors.redgoogleloginbutton}
+            icon={<Icon type="FontAwesome" name="google" style={{ color: colors.white }}/> }
           />
           <MyButton
             text="Hesap Oluştur"
             color={colors.bluebackground}
             backgroundColor={colors.white}
+            icon={<Icon type="FontAwesome" name="user-plus" style={{ color: colors.bluebackground }}/> }
           />
         </View>
       </SafeAreaView>

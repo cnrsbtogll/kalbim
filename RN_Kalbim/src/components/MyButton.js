@@ -5,29 +5,43 @@ import {Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 
 export default class MyButton extends Component {
   render() {
-    const {text, color, backgroundColor} = this.props;
+    const {text, color, backgroundColor, icon, handleOnPress} = this.props;
     return (
-      <TouchableOpacity style={[{backgroundColor},styles.wrapper]}>
+      <TouchableOpacity style={[{backgroundColor},styles.wrapper]}
+      onPress={handleOnPress}
+      >
+        <View style={styles.buttonTextWrapper}>
+        {icon}
         <Text style={[{color},styles.buttonText]}>{text}</Text>
+        </View>
+          
       </TouchableOpacity>
     );
   }
 }
-// MyButton.PropTypes = {
-//   text: PropTypes.string.isRequired,
-// };
+ MyButton.PropTypes = {
+   text: PropTypes.string.isRequired,
+   icon:PropTypes.object,
+   handleOnPress:PropTypes.func,
+ };
 const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
-    padding: 10,
-    marginTop: 5,
-    margin :10,
+    padding: 7,
+    margin :5,
     borderRadius:25,
     width:350
+  },
+  buttonTextWrapper:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    paddingLeft:5,
+    paddingRight:15,
   },
   buttonText: {
     fontSize: 14,
     textAlign: 'center',
+    alignSelf:'center',
     width: '100%',
     
   },

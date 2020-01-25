@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import { StyleSheet } from 'react-native'
-import {Button, Content, Input, Item, Spinner, Text, View} from 'native-base';
+import {Button, Content, Input, Item, Spinner, Text, Icon, View} from 'native-base';
 import {Formik} from 'formik';
 import colors from '../../styles/colors'
 import {API_BASE} from '../../constants';
 import axios from 'axios';
-import MyButton from '../../components/MyButton'
 import validations from './validations';
 
 export default class CreateAccountForm extends Component {
@@ -111,7 +110,10 @@ export default class CreateAccountForm extends Component {
                 style={{
                   marginTop: 10,backgroundColor:colors.blueloginbutton, 
                   }}>
-                {isSubmitting && <Spinner size={'small'} color={'white'} />}
+                {isSubmitting && <Spinner size={'small'} color={'white'} 
+                
+                />}
+                
                 <Text>Giriş</Text>
               </Button>
             </Content>
