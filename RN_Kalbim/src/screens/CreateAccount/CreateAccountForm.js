@@ -1,8 +1,17 @@
 import React, {Component} from 'react';
-import { StyleSheet } from 'react-native'
-import {Button, Content, Input, Item, Spinner, Text, Icon, View} from 'native-base';
+import {StyleSheet} from 'react-native';
+import {
+  Button,
+  Content,
+  Input,
+  Item,
+  Spinner,
+  Text,
+  Icon,
+  View,
+} from 'native-base';
 import {Formik} from 'formik';
-import colors from '../../styles/colors'
+import colors from '../../styles/colors';
 import {API_BASE} from '../../constants';
 import axios from 'axios';
 import validations from './validations';
@@ -103,47 +112,60 @@ export default class CreateAccountForm extends Component {
                 )}
               </Item>
 
-              <Button rounded
+              <Button 
+                rounded
                 block
+                iconLeft
                 disabled={!isValid || isSubmitting}
                 onPress={handleSubmit}
-                style={{
-                  marginTop: 10,backgroundColor:colors.blueloginbutton, 
-                  }}>
-                {isSubmitting && <Spinner size={'small'} color={'white'} 
-                
-                />}
-                
-                <Text>Giriş</Text>
+                style={styles.buttonTextWrapper}>               
+                  <Icon name="log-in"  />
+                  {isSubmitting && <Spinner size={'small'} color={'white'} />}
+                  <Text style={styles.buttonText}>Giriş</Text>
+                  <Text style={{width:60}}/>
+          
               </Button>
             </Content>
           )}
         </Formik>
-      <View style={styles.wrapper2}>
-        <Text style={styles.text}>veya</Text>
-        <Button rounded
-          block 
-          style={{marginTop: 10,backgroundColor:colors.blueloginbutton}}
-        >
-            <Text>Zaten bir hesabım var</Text>
+        <View style={styles.wrapper2}>
+          <Text style={styles.text}>veya</Text>
+          <Button
+            rounded
+            iconLeft
+            block
+            style={styles.buttonTextWrapper}>
+              <Icon type="FontAwesome" name="user"  />
+            <Text style={styles.buttonText}>Zaten bir hesabım var</Text>
+            <Text style={{width:50}}/>
           </Button>
-      </View>
+        </View>
       </View>
     );
   }
 }
 
-const styles=StyleSheet.create({
-  wrapper:{
-      flex:1,
-      backgroundColor:colors.bluebackground,
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: colors.bluebackground,
   },
-  wrapper2:{
-    padding:10,
-    alignItems:'center'
+  wrapper2: {
+    padding: 10,
+    alignItems: 'center',
   },
-  text:{
-    color:colors.white,
-    alignSelf:'center'
-  }
-})
+  text: {
+    color: colors.white,
+    alignSelf: 'center',
+  },
+  buttonTextWrapper:{
+    flexDirection:'row',
+    alignItems:'stretch',
+    marginTop:10,    
+    backgroundColor: colors.blueloginbutton,
+  },
+  buttonText: {
+    textAlign: 'center',
+    width: '75%',
+  },
+});
