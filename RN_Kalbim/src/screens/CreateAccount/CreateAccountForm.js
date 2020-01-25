@@ -10,13 +10,16 @@ import {
   Icon,
   View,
 } from 'native-base';
+import TextInputMask from 'react-native-text-input-mask';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
 import {API_BASE} from '../../constants';
 import axios from 'axios';
 import validations from './validations';
 
+
 export default class CreateAccountForm extends Component {
+  
   _handleSubmit = async ({Telefon, Şifre}, bag) => {
     try {
       const {data} = await axios.post(`${API_BASE}/register`, {
@@ -60,12 +63,15 @@ export default class CreateAccountForm extends Component {
           }) => (
             <Content style={{padding: 10}}>
               <Item error={errors.Telefon && touched.Telefon}>
-                <Input
+                <TextInputMask
                   returnKeyType={'next'}
                   onSubmitEditing={() => this.passwordRef._root.focus()}
                   onChangeText={handleChange('Telefon')}
                   value={values.Telefon}
-                  placeholder="Telefon"
+                  placeholder="+90 (555) 555 55 55"
+                  placeholderTextColor='gray'
+                  mask={"+90 ([000]) [000] [00] [00]"}
+                  sytle={styles.input}
                   onBlur={() => setFieldTouched('Telefon')}
                   autoCorrect={false}
                   autoCapitalize={'none'}
@@ -85,6 +91,7 @@ export default class CreateAccountForm extends Component {
                   onChangeText={handleChange('Şifre')}
                   value={values.Şifre}
                   placeholder="Şifre"
+                  sytle={styles.input}
                   onBlur={() => setFieldTouched('Şifre')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
@@ -102,11 +109,13 @@ export default class CreateAccountForm extends Component {
                   onChangeText={handleChange('passwordConfirm')}
                   value={values.passwordConfirm}
                   placeholder="Şifre Tekrar"
+                  sytle={styles.input}
                   onBlur={() => setFieldTouched('passwordConfirm')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
+                  color={'white'}                  
                 />
-
+                
                 {errors.passwordConfirm && touched.passwordConfirm && (
                   <Text style={{color: 'red'}}>{errors.passwordConfirm}</Text>
                 )}
@@ -122,8 +131,7 @@ export default class CreateAccountForm extends Component {
                   <Icon name="log-in"  />
                   {isSubmitting && <Spinner size={'small'} color={'white'} />}
                   <Text style={styles.buttonText}>Giriş</Text>
-                  <Text style={{width:60}}/>
-          
+                  <Text style={{width:60}}/>          
               </Button>
             </Content>
           )}
@@ -153,6 +161,12 @@ const styles = StyleSheet.create({
   wrapper2: {
     padding: 10,
     alignItems: 'center',
+  },
+  input:{
+    backgroundColor:'white',
+    tintColor:colors.white,
+    color:'white',
+   
   },
   text: {
     color: colors.white,

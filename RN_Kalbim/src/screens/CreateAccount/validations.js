@@ -1,12 +1,13 @@
 import * as Yup from "yup";
-
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 const validations = Yup.object().shape({
-	Telefon: Yup
+	Telefon:Yup
 		.string()
-		.required('zorunludur'),
+		.matches(phoneRegExp, 'Geçersiz format')		
+		.required('Zorunlu alan'),
 	Şifre: Yup
 		.string()
-		.required('zorunludur'),
+		.required('Zorunlu alan'),
 	passwordConfirm: Yup
 		.string()
 		.oneOf([Yup.ref('password')], 'Şifre eşleşmedi.')
