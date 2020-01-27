@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
-import Logout from './src/screens/Logout'
-import CreateAccount from './src/screens/CreateAccount'
+import 'react-native-gesture-handler';
+import Router from './src/Router'
+
+
+
+console.disableYellowBox=true;
 
 export default class App extends Component {
   render() {
     return (
-      <CreateAccount/>
-      //<Logout/>
+      //<Home/>
+      <Router/>
     )
   }
 }

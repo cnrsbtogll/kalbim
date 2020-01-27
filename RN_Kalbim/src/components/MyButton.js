@@ -20,9 +20,9 @@ export default class MyButton extends Component {
   }
 }
  MyButton.PropTypes = {
-   text: PropTypes.string.isRequired,
+   text:PropTypes.string.isRequired,
    icon:PropTypes.object,
-   handleOnPress:PropTypes.func,
+   handleOnPress:PropTypes.func.isRequired,
  };
 const styles = StyleSheet.create({
   wrapper: {

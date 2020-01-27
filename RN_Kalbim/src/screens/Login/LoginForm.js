@@ -18,7 +18,7 @@ import axios from 'axios';
 import validations from './validations';
 
 
-export default class CreateAccountForm extends Component {  
+export default class LoginForm extends Component {  
   _handleSubmit = async ({Telefon, Şifre}, bag) => {
     try {
       const {data} = await axios.post(`${API_BASE}/register`, {
@@ -46,7 +46,6 @@ export default class CreateAccountForm extends Component {
           initialValues={{
             Telefon: '',
             Şifre: '',
-            passwordConfirm: '',
           }}
           onSubmit={this._handleSubmit}
           validationSchema={validations}>
@@ -86,8 +85,7 @@ export default class CreateAccountForm extends Component {
               <Item error={errors.Şifre && touched.Şifre}>
                 <Input
                   ref={ref => (this.passwordRef = ref)}
-                  returnKeyType={'next'}
-                  onSubmitEditing={() => this.passwordConfirmRef._root.focus()}
+                  returnKeyType={'go'}                  
                   onChangeText={handleChange('Şifre')}
                   value={values.Şifre}
                   placeholder="Şifre"
@@ -101,26 +99,6 @@ export default class CreateAccountForm extends Component {
                   <Text style={{color: 'red'}}>{errors.Şifre}</Text>
                 )}
               </Item>
-
-              <Item error={errors.passwordConfirm && touched.passwordConfirm}>
-                <Input
-                  ref={ref => (this.passwordConfirmRef = ref)}
-                  returnKeyType={'go'}
-                  onChangeText={handleChange('passwordConfirm')}
-                  value={values.passwordConfirm}
-                  placeholder="Şifre Tekrar"
-                  sytle={styles.input}
-                  onBlur={() => setFieldTouched('passwordConfirm')}
-                  autoCapitalize={'none'}
-                  secureTextEntry={true}
-                  color={'white'}                  
-                />
-                
-                {errors.passwordConfirm && touched.passwordConfirm && (
-                  <Text style={{color: 'red'}}>{errors.passwordConfirm}</Text>
-                )}
-              </Item>
-
               <Button 
                 rounded
                 block
@@ -141,11 +119,11 @@ export default class CreateAccountForm extends Component {
           <Button
             rounded
             iconLeft
-            block
-            onPress={() => this.props.navigation.navigate('Login')}
+            block            
+            onPress={() => this.props.navigation.navigate('CreateAccount')}
             style={styles.buttonTextWrapper}>
-              <Icon type="FontAwesome" name="user"  />
-            <Text style={styles.buttonText}>Zaten bir hesabım var</Text>
+              <Icon type="FontAwesome" name="user-plus"  />              
+            <Text style={styles.buttonText}>Hesap Oluştur</Text>              
             <Text style={{width:50}}/>
           </Button>
         </View>

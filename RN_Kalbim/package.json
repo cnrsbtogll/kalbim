@@ -10,12 +10,20 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.6",
     "axios": "^0.19.2",
     "formik": "^2.1.2",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-gesture-handler": "^1.5.3",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.6.2",
+    "react-native-screens": "^2.0.0-alpha.29",
     "react-native-text-input-mask": "^2.0.0",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^2.0.16",
+    "react-navigation-tabs": "^2.7.0",
     "yup": "^0.28.0"
   },
   "devDependencies": {
