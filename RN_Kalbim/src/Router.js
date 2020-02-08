@@ -5,7 +5,7 @@ import {createStackNavigator} from 'react-navigation-stack';
 //import AuthLoading from './screens/AuthLoading';
 
 // app stack
-//import Home from './screens/Home';
+import Home from './screens/Home';
 
 //auth stack
 import Logout from './screens/Logout';
@@ -38,25 +38,26 @@ const AuthStack = createStackNavigator(
   {initialRouteName: 'Logout'},
 );
 
-// const AppStack = createStackNavigator({
-//   Home: {
-//     screen: Home,
-//     navigationOptions: {
-//       title: 'Anasayfa',
-//     },
-//   },  
-// });
-// const SwitchNavigator = createSwitchNavigator(
-//   {
-//    // AuthLoading: {
-//    //   screen: AuthLoading,
-//    // },
-//     App: AppStack,
-//     Auth: AuthStack,
-//   },
-//   {
-//     initialRouteName: 'App',
-//   },
-// );
+const AppStack = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      title: 'Anasayfa',
+      headerShown: false,
+    },
+  },  
+});
+const SwitchNavigator = createSwitchNavigator(
+  {
+   // AuthLoading: {
+   //   screen: AuthLoading,
+   // },
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: 'App',
+  },
+);
 
-export default createAppContainer(AuthStack);
+export default createAppContainer(SwitchNavigator);
