@@ -19,7 +19,7 @@ export default class MyButton extends Component {
     );
   }
 }
- MyButton.PropTypes = {
+ MyButton.propTypes = {
    text:PropTypes.string.isRequired,
    icon:PropTypes.object,
    handleOnPress:PropTypes.func.isRequired,

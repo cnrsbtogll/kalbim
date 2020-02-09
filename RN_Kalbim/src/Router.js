@@ -2,7 +2,7 @@ import {createAppContainer,  createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 // auth loading
-//import AuthLoading from './screens/AuthLoading';
+import AuthLoading from './screens/AuthLoading';
 
 // app stack
 import Home from './screens/Home';
@@ -49,14 +49,14 @@ const AppStack = createStackNavigator({
 });
 const SwitchNavigator = createSwitchNavigator(
   {
-   // AuthLoading: {
-   //   screen: AuthLoading,
-   // },
+   AuthLoading: {
+     screen: AuthLoading,
+   },
     App: AppStack,
     Auth: AuthStack,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Auth',
   },
 );
 

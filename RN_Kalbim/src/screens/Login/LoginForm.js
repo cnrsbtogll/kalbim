@@ -15,6 +15,7 @@ import {Formik} from 'formik';
 import colors from '../../styles/colors';
 import {API_BASE} from '../../constants';
 import axios from 'axios';
+import firebase from 'firebase'
 import validations from './validations';
 
 
@@ -38,7 +39,6 @@ export default class LoginForm extends Component {
       bag.setErrors(e);
     }
   };
-
   render() {
     return (
       <View style={styles.wrapper}>
@@ -47,7 +47,7 @@ export default class LoginForm extends Component {
             Telefon: '',
             Şifre: '',
           }}
-          onSubmit={this._handleSubmit}
+          onSubmit={this._handleSubmit.bind(this)}
           validationSchema={validations}>
           {({
             values,
@@ -61,16 +61,16 @@ export default class LoginForm extends Component {
           }) => (
             <Content style={{padding: 10}}>
               <Item  error={errors.Telefon && touched.Telefon}>
-              <Text>+90 (5</Text>
+               
                 <TextInputMask
                   returnKeyType={'next'}
                   onSubmitEditing={() => this.passwordRef._root.focus()}
                   onChangeText={handleChange('Telefon')}
                   value={values.Telefon}
-                  placeholder="55) 555 55 55"
+                  placeholder="+90 (555) 555 55 55"
                   placeholderTextColor='gray'
-                  mask={"[00]) [000] [00] [00]"}
-                  sytle={styles.input}
+                  mask={"+90 (5[00]) [000] [00] [00]"}
+                  style={styles.input}
                   onBlur={() => setFieldTouched('Telefon')}
                   autoCorrect={false}
                   autoFocus={true}
@@ -89,7 +89,7 @@ export default class LoginForm extends Component {
                   onChangeText={handleChange('Şifre')}
                   value={values.Şifre}
                   placeholder="Şifre"
-                  sytle={styles.input}
+                  style={styles.input}
                   onBlur={() => setFieldTouched('Şifre')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
@@ -115,7 +115,7 @@ export default class LoginForm extends Component {
           )}
         </Formik>
         <View style={styles.wrapper2}>
-          <Text style={styles.text}>veya</Text>
+          <Text style={{color: "#fff" }}>veya</Text>
           <Button
             rounded
             iconLeft
@@ -140,15 +140,7 @@ const styles = StyleSheet.create({
   wrapper2: {
     padding: 10,
     alignItems: 'center',
-  },
-  input:{
-    color:colors.white,
-   
-  },
-  text: {
-    color: colors.white,
-    alignSelf: 'center',
-  },
+  }, 
   buttonTextWrapper:{
     flexDirection:'row',
     alignItems:'stretch',
@@ -159,4 +151,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '75%',
   },
+  input:{
+     color: "#fff", 
+     fontSize:20,
+  }
 });

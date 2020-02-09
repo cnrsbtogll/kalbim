@@ -1,5 +1,5 @@
-import UserPhoneStore from './UserPhoneStore'
+import UserStore from './UserStore'
 
 export default{
-    UserPhoneStore
+    UserStore
 }

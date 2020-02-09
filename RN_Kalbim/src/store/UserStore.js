@@ -1,7 +1,7 @@
 import {observable} from 'mobx'
 
-class UserPhoneStore{
+class UserStore{
     @observable userphone = "+905550059876"
 }
 
-export default new UserPhoneStore();
+export default new UserStore();

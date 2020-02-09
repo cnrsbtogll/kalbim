@@ -61,17 +61,16 @@ export default class CreateAccountForm extends Component {
             isSubmitting,
           }) => (
             <Content style={{padding: 10}}>
-              <Item  error={errors.Telefon && touched.Telefon}>
-              <Text>+90 (5</Text>
+              <Item  error={errors.Telefon && touched.Telefon}>             
                 <TextInputMask
                   returnKeyType={'next'}
                   onSubmitEditing={() => this.passwordRef._root.focus()}
                   onChangeText={handleChange('Telefon')}
                   value={values.Telefon}
-                  placeholder="55) 555 55 55"
+                  placeholder="+90 (555) 555 55 55"
                   placeholderTextColor='gray'
-                  mask={"[00]) [000] [00] [00]"}
-                  sytle={styles.input}
+                  mask={"+90 (5[00]) [000] [00] [00]"}
+                  style={styles.input}
                   onBlur={() => setFieldTouched('Telefon')}
                   autoCorrect={false}
                   autoFocus={true}
@@ -91,7 +90,7 @@ export default class CreateAccountForm extends Component {
                   onChangeText={handleChange('Şifre')}
                   value={values.Şifre}
                   placeholder="Şifre"
-                  sytle={styles.input}
+                  style={styles.input}
                   onBlur={() => setFieldTouched('Şifre')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
@@ -109,11 +108,10 @@ export default class CreateAccountForm extends Component {
                   onChangeText={handleChange('passwordConfirm')}
                   value={values.passwordConfirm}
                   placeholder="Şifre Tekrar"
-                  sytle={styles.input}
+                  style={styles.input}
                   onBlur={() => setFieldTouched('passwordConfirm')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
-                  color={'white'}                  
                 />
                 
                 {errors.passwordConfirm && touched.passwordConfirm && (
@@ -137,7 +135,7 @@ export default class CreateAccountForm extends Component {
           )}
         </Formik>
         <View style={styles.wrapper2}>
-          <Text style={styles.text}>veya</Text>
+          <Text style={{color:"#fff"}}>veya</Text>
           <Button
             rounded
             iconLeft
@@ -163,14 +161,14 @@ const styles = StyleSheet.create({
     padding: 10,
     alignItems: 'center',
   },
-  input:{
-    color:colors.white,
-   
+  input: {
+     color: "#fff", 
+     fontSize:20,
   },
-  text: {
-    color: colors.white,
-    alignSelf: 'center',
-  },
+  // text: {
+  //   color: colors.white,
+  //   alignSelf: 'center',
+  //},
   buttonTextWrapper:{
     flexDirection:'row',
     alignItems:'stretch',
