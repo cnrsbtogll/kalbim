@@ -135,7 +135,7 @@ export default class LoginForm extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.bluebackground,
+    backgroundColor: colors.background,
   },
   wrapper2: {
     padding: 10,

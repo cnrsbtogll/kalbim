@@ -150,7 +150,7 @@ export default class CreateAccountForm extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.bluebackground,
+    backgroundColor: colors.background,
   },
   wrapper2: {
     padding: 10,

@@ -6,14 +6,17 @@ import Measure from './Measure';
 import History from './History';
 import Emergency from './Emergency';
 import Profile from './Profile';
+import colors from '../styles/colors';
 
 const HomeTabRouter = createBottomTabNavigator(
   {
     Measure: {
-      screen: Measure,
+      screen: Measure,     
       navigationOptions: {
-        title: 'Ölçüm',
-        tabBarIcon: ({ tintColor }) => (<Icon name="th-large" size={22} color={tintColor} />)
+        title: 'Ölçüm',        
+        tabBarIcon: ({ tintColor }) => (<Icon name="th-large" size={22} color={tintColor} 
+        />),
+
       }
     },
     History: {
@@ -42,6 +45,10 @@ const HomeTabRouter = createBottomTabNavigator(
     initialRouteName: 'Measure',
     tabBarOptions: {
       fontWeight: '600',
+      activeTintColor:colors.white,
+      style: {
+        backgroundColor: colors.tabbarcolor,//color you want to change
+      }
     },
   },
 );

@@ -87,13 +87,13 @@ export default class Logout extends Component {
           />
           <MyButton
             text="Hesap Oluştur"
-            color={colors.bluebackground}
+            color={colors.background}
             backgroundColor={colors.white}
             icon={
               <Icon
                 type="FontAwesome"
                 name="user-plus"
-                style={{color: colors.bluebackground}}
+                style={{color: colors.background}}
               />
             }
             handleOnPress={this.onCreateAccountPress}
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: colors.bluebackground,
+    backgroundColor: colors.background,
   },
   logo: {
     width: 180,

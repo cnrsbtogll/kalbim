@@ -2,18 +2,13 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Text, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import MyBoxButton from '../components/MyBoxButton'
+import colors from '../styles/colors';
 
 export default class Measure extends Component {
   render() {
-    const items = [
-      {name: '', code: '', path: ""},
-      {name: 'Ateş', code: '°C', path: '../img/thermometer.png'},
-      {name: 'SpO₂', code: 'O₂%', path: '../img/drop.png'},
-      {name: 'Kalp Atışı', code: 'BMP', path: '../img/heart rate.png'},
-    ];
 
     return (
-      <React.Fragment>
+      <React.Fragment style={styles.wrapper}>
         <View style={styles.container1}>
           <TouchableOpacity style={styles.itemContainer}>
             <Image source={require('../img/pulse22.png')} style={styles.logo} />
@@ -27,7 +22,7 @@ export default class Measure extends Component {
            text="Kan Basıncı"
            text2="mmHg"
            icon={<Image source={require('../img/blood-pressure.png')} style={styles.logo2} />}
-           backgroundColor='#2c3e50'
+           backgroundColor={colors.background}
            />
             </View>          
           <View style={styles.itemContainer2}>
@@ -35,7 +30,7 @@ export default class Measure extends Component {
            text="SpO₂"
            text2="O₂%"
            icon={<Image source={require('../img/drop.png')} style={styles.logo2} />}
-           backgroundColor='#2c3e50'
+           backgroundColor={colors.background}
            />
           </View>
           <View style={styles.itemContainer2}>
@@ -43,7 +38,7 @@ export default class Measure extends Component {
            text="Ateş"
            text2="°C"
            icon={<Image source={require('../img/thermometer.png')} style={styles.logo2} />}
-           backgroundColor='#2c3e50'
+           backgroundColor={colors.background}
            />
           </View>
           <View style={styles.itemContainer2}>
@@ -51,7 +46,7 @@ export default class Measure extends Component {
            text="Kalp Atış Hızı"
            text2="BMP"
            icon={<Image source={require('../img/heart_rate.png')} style={styles.logo2} />}
-           backgroundColor='#2c3e50'
+           backgroundColor={colors.background}
            />
           </View>
         </View>
@@ -61,12 +56,16 @@ export default class Measure extends Component {
 }
 
 const styles = StyleSheet.create({
+  wrapper:{
+    flex:1,
+    backgroundColor:colors.black,
+  },
   container1: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: '#2c3e50',
+    backgroundColor: colors.background,
     marginTop: 50,
     marginBottom: 1,
     padding: 5,
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   itemContainer2: {
     height: '49%',
      width: '49.5%',
-     backgroundColor: '#2c3e50',
+     backgroundColor: colors.background,
     margin: 1,
   },
   itemName: {

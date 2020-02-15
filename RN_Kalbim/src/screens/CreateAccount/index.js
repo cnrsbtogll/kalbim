@@ -38,7 +38,7 @@ export default class CreateAccount extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor:colors.bluebackground
+    backgroundColor:colors.background
   },
   text:{
     color:colors.white,
