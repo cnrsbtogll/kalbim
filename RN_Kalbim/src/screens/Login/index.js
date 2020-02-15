@@ -16,7 +16,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import {observer, inject} from 'mobx-react'
 
-@inject('UserStore')
+@inject('AuthStore')
 @observer
 export default class Login extends Component {  
   render() {    

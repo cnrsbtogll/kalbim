@@ -10,8 +10,8 @@ import {Provider} from 'mobx-react';
 console.disableYellowBox = true;
 
 export default class App extends Component {
-  ComponentDidMount() {
-    var firebaseConfig = {
+  componentWillMount() {
+    const firebaseConfig = {
       apiKey: 'AIzaSyB1I0NItpAv3sI_IbAB5wbQd0EOxCpXH1U',
       authDomain: 'kalbim-532f8.firebaseapp.com',
       databaseURL: 'https://kalbim-532f8.firebaseio.com',
@@ -23,7 +23,7 @@ export default class App extends Component {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    //firebase.analytics();
   }
   render() {
     return (

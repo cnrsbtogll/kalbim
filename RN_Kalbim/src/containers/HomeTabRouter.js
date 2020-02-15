@@ -1,4 +1,6 @@
+import React, { Component } from 'react'
 import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer} from 'react-navigation'
 import Measure from './Measure';
 import History from './History';
@@ -7,10 +9,34 @@ import Profile from './Profile';
 
 const HomeTabRouter = createBottomTabNavigator(
   {
-    Measure: {screen: Measure},
-    History: {screen: History},
-    Emergency: {screen: Emergency},
-    Profile: {screen: Profile},
+    Measure: {
+      screen: Measure,
+      navigationOptions: {
+        title: 'Ölçüm',
+        tabBarIcon: ({ tintColor }) => (<Icon name="th-large" size={22} color={tintColor} />)
+      }
+    },
+    History: {
+      screen: History,
+      navigationOptions: {
+        title: 'Geçmiş',
+        tabBarIcon: ({ tintColor }) => (<Icon name="history" size={22} color={tintColor} />)
+      }
+    },
+    Emergency: {
+      screen: Emergency,
+      navigationOptions: {
+        title: 'Acil Çağrı',
+        tabBarIcon: ({ tintColor }) => (<Icon name="ambulance" size={22} color={tintColor} />)
+      }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        title: 'Hesap',
+        tabBarIcon: ({ tintColor }) => (<Icon name="user" size={22} color={tintColor} />)
+      }
+    },
   },
   {
     initialRouteName: 'Measure',

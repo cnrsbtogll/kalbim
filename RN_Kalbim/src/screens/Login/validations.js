@@ -1,18 +1,15 @@
 import * as Yup from "yup";
-const phoneRegExp = /(\+90\s\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2})/
-
-
-
-/*/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/*/
+//const phoneRegExp = /(\+90\s\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2})/
 
 
 const validations = Yup.object().shape({
-	Telefon:Yup
+	email:Yup
 		.string()
-		.matches(phoneRegExp, 'Geçersiz format')		
+		.email('Geçersiz format')		
 		.required('Zorunlu alan'),
-	Şifre: Yup
+	password: Yup
 		.string()
+		.min(6,'En az 6 karakterden oluşmalıdır.')
 		.required('Zorunlu alan'),
 });
 

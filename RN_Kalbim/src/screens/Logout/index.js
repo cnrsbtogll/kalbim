@@ -3,6 +3,11 @@ import MyButton from '../../components/MyButton';
 import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 import colors from '../../styles/colors';
 import {Icon} from 'native-base';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
 
 export default class Logout extends Component {
   constructor(props) {
@@ -18,9 +23,23 @@ export default class Logout extends Component {
   onFacebookLoginPress(){
     alert("Facebook Login Button Pressed")
   }
-  onGoogleLoginPress(){
-    alert("Google Login Button Pressed")
-  }
+  onGoogleLoginPress = async () => {
+      try {
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn();
+        this.setState({ userInfo });
+      } catch (error) {
+        if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+          // user cancelled the login flow
+        } else if (error.code === statusCodes.IN_PROGRESS) {
+          // operation (e.g. sign in) is in progress already
+        } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+          // play services not available or outdated
+        } else {
+          // some other error happened
+        }
+      }
+    };
   onCreateAccountPress() {
     this.props.navigation.navigate('CreateAccount');
   }

@@ -10,42 +10,43 @@ import {
   Icon,
   View,
 } from 'native-base';
-import TextInputMask from 'react-native-text-input-mask';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
 import {API_BASE} from '../../constants';
 import axios from 'axios';
-import firebase from 'firebase'
+import firebase from 'firebase';
 import validations from './validations';
 
-
-export default class LoginForm extends Component {  
-  _handleSubmit = async ({Telefon, Şifre}, bag) => {
+export default class LoginForm extends Component {
+  _handleSubmit = async ({email, password}, bag) => {
     try {
-      const {data} = await axios.post(`${API_BASE}/register`, {
-        Telefon,
-        Şifre,
-      });
-      bag.setSubmitting(false);
-
-      if (data.hasOwnProperty('errors')) {
-        bag.setErrors(data.errors);
-        return false;
-      }
-
-      this.props.navigation.navigate('Login');
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password).then(this.onLoginSuccess.bind(this))
+        .catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...          
+         if (errorCode === 'auth/user-not-found') {
+            alert('Kayıtlı mail adresi bulunamadı. Lütfen kayıt olun.');
+          } 
+        });      
     } catch (e) {
-      bag.setSubmitting(false);
-      bag.setErrors(e);
+      alert('Beklenmedik bir hata oluştu. Yeniden deneyin.');
     }
   };
+
+  onLoginSuccess(){
+    this.props.navigation.navigate('Home');
+  }
   render() {
     return (
       <View style={styles.wrapper}>
         <Formik
           initialValues={{
-            Telefon: '',
-            Şifre: '',
+            email: '',
+            password: '',
           }}
           onSubmit={this._handleSubmit.bind(this)}
           validationSchema={validations}>
@@ -60,71 +61,70 @@ export default class LoginForm extends Component {
             isSubmitting,
           }) => (
             <Content style={{padding: 10}}>
-              <Item  error={errors.Telefon && touched.Telefon}>
-               
-                <TextInputMask
+              <Item error={errors.email && touched.email}>
+                <Input
                   returnKeyType={'next'}
                   onSubmitEditing={() => this.passwordRef._root.focus()}
-                  onChangeText={handleChange('Telefon')}
-                  value={values.Telefon}
-                  placeholder="+90 (555) 555 55 55"
-                  placeholderTextColor='gray'
-                  mask={"+90 (5[00]) [000] [00] [00]"}
+                  onChangeText={handleChange('email')}
+                  value={values.email}
+                  placeholder="e-mail"
                   style={styles.input}
-                  onBlur={() => setFieldTouched('Telefon')}
-                  autoCorrect={false}
-                  autoFocus={true}
+                  onBlur={() => setFieldTouched('email')}
                   autoCapitalize={'none'}
-                  keyboardType={'phone-pad'}
+                  keyboardType={'email-address'}
+                  autoCorrect={true}
+                  autoFocus={true}
                 />
-                {errors.Telefon && touched.Telefon && (
-                  <Text style={{color: 'red'}}>{errors.Telefon}</Text>
+
+                {errors.email && touched.email && (
+                  <Text style={{color: 'red'}}>{errors.email}</Text>
                 )}
               </Item>
 
-              <Item error={errors.Şifre && touched.Şifre}>
+              <Item error={errors.password && touched.password}>
                 <Input
                   ref={ref => (this.passwordRef = ref)}
-                  returnKeyType={'go'}                  
-                  onChangeText={handleChange('Şifre')}
-                  value={values.Şifre}
+                  returnKeyType={'next'}
+                  onSubmitEditing={() => this.passwordConfirmRef._root.focus()}
+                  onChangeText={handleChange('password')}
+                  value={values.password}
                   placeholder="Şifre"
                   style={styles.input}
-                  onBlur={() => setFieldTouched('Şifre')}
+                  onBlur={() => setFieldTouched('password')}
                   autoCapitalize={'none'}
                   secureTextEntry={true}
                 />
 
-                {errors.Şifre && touched.Şifre && (
-                  <Text style={{color: 'red'}}>{errors.Şifre}</Text>
+                {errors.password && touched.password && (
+                  <Text style={{color: 'red'}}>{errors.password}</Text>
                 )}
               </Item>
-              <Button 
+              <Button
                 rounded
                 block
                 iconLeft
                 disabled={!isValid || isSubmitting}
                 onPress={handleSubmit}
-                style={styles.buttonTextWrapper}>               
-                  <Icon name="log-in"  />
-                  {isSubmitting && <Spinner size={'small'} color={'white'} />}
-                  <Text style={styles.buttonText}>Giriş</Text>
-                  <Text style={{width:60}}/>          
+                style={styles.buttonTextWrapper}>
+                <Icon name="log-in" />
+                {isSubmitting && <Spinner size={'small'} color={'white'} />}
+                <Text style={styles.buttonText}>Giriş</Text>
+                <Text style={{width: 60}} />
               </Button>
             </Content>
           )}
         </Formik>
         <View style={styles.wrapper2}>
-          <Text style={{color: "#fff" }}>veya</Text>
+          <Text style={{color: '#fff'}}>veya</Text>
           <Button
             rounded
             iconLeft
-            block            
+            block
             onPress={() => this.props.navigation.navigate('CreateAccount')}
             style={styles.buttonTextWrapper}>
-              <Icon type="FontAwesome" name="user-plus"  />              
-            <Text style={styles.buttonText}>Hesap Oluştur</Text>              
-            <Text style={{width:50}}/>
+            <Icon type="FontAwesome" name="user-plus" />
+            <Text style={styles.buttonText}>Hesap Oluştur</Text>
+            <Text style={{width: 50}} />
           </Button>
         </View>
       </View>
@@ -140,19 +140,19 @@ const styles = StyleSheet.create({
   wrapper2: {
     padding: 10,
     alignItems: 'center',
-  }, 
-  buttonTextWrapper:{
-    flexDirection:'row',
-    alignItems:'stretch',
-    marginTop:10,    
+  },
+  buttonTextWrapper: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    marginTop: 10,
     backgroundColor: colors.blueloginbutton,
   },
   buttonText: {
     textAlign: 'center',
     width: '75%',
   },
-  input:{
-     color: "#fff", 
-     fontSize:20,
-  }
+  input: {
+    color: '#fff',
+    fontSize: 20,
+  },
 });
