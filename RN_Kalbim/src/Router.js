@@ -11,6 +11,7 @@ import Home from './screens/Home';
 import Logout from './screens/Logout';
 import Login from './screens/Login';
 import CreateAccount from './screens/CreateAccount';
+import colors from './styles/colors';
 
 const AuthStack = createStackNavigator(
   {
@@ -24,6 +25,7 @@ const AuthStack = createStackNavigator(
       screen: Login,
       navigationOptions: {
         title: 'Giriş',
+        headerTitleAlign:'center',
         headerShown: false,
       },
     },
@@ -31,6 +33,7 @@ const AuthStack = createStackNavigator(
       screen: CreateAccount,
       navigationOptions: {
         title: 'Hesap Oluştur',
+        headerTitleAlign:'center',
         headerShown: false,
       },
     },
@@ -56,7 +59,7 @@ const SwitchNavigator = createSwitchNavigator(
     Auth: AuthStack,
   },
   {
-    initialRouteName: 'Auth',
+    initialRouteName: 'AuthLoading',
   },
 );
 

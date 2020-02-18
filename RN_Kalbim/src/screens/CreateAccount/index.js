@@ -26,8 +26,8 @@ export default class CreateAccount extends Component {
               <Text style={styles.text}>Vazgeç</Text>           
               </TouchableOpacity>            
           </Left>
-          <Body>
-            <Title>Hesap Oluştur</Title>
+          <Body style={styles.title}>
+            <Title >Hesap Oluştur</Title>
           </Body>
         </Header>
         <CreateAccountForm navigation={this.props.navigation} />
@@ -38,7 +38,12 @@ export default class CreateAccount extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor:colors.background
+    backgroundColor:colors.background, 
+    //flexDirection:"row",
+    //alignItems:'flex-end'   
+    
+  },
+  title:{
   },
   text:{
     color:colors.white,

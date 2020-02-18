@@ -12,33 +12,40 @@ import {
 } from 'native-base';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
-import {API_BASE} from '../../constants';
-import axios from 'axios';
-import firebase from 'firebase';
+import auth, {firebase} from '@react-native-firebase/auth';
 import validations from './validations';
 
+import {observer, inject} from 'mobx-react';
+
+@inject('AuthStore')
+@observer
 export default class LoginForm extends Component {
-  _handleSubmit = async ({email, password}, bag) => {
+  _handleSubmit = async ({email, password}) => {
     try {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password).then(this.onLoginSuccess.bind(this))
+       await auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(this.onLoginSuccess.bind(this))
         .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
-          // ...          
-         if (errorCode === 'auth/user-not-found') {
+          // ...
+          if (errorCode === 'auth/user-not-found') {
             alert('Kayıtlı mail adresi bulunamadı. Lütfen kayıt olun.');
-          } 
-        });      
+          } else if (errorCode === 'auth/wrong-password') {
+            alert('Şifre hatalı.');
+          }
+        });
+      
     } catch (e) {
       alert('Beklenmedik bir hata oluştu. Yeniden deneyin.');
     }
   };
 
-  onLoginSuccess(){
+  onLoginSuccess = async () =>{
+    const mToken = await auth().currentUser.getIdToken(true);
     this.props.navigation.navigate('Home');
+    this.props.AuthStore.saveToken(mToken);
   }
   render() {
     return (
@@ -68,6 +75,7 @@ export default class LoginForm extends Component {
                   onChangeText={handleChange('email')}
                   value={values.email}
                   placeholder="e-mail"
+                  Text="cnr@gmail.com"
                   style={styles.input}
                   onBlur={() => setFieldTouched('email')}
                   autoCapitalize={'none'}
@@ -89,6 +97,7 @@ export default class LoginForm extends Component {
                   onChangeText={handleChange('password')}
                   value={values.password}
                   placeholder="Şifre"
+                  Text="123456"
                   style={styles.input}
                   onBlur={() => setFieldTouched('password')}
                   autoCapitalize={'none'}

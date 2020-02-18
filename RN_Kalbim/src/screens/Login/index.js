@@ -14,13 +14,8 @@ import colors from '../../styles/colors';
 import LoginForm from './LoginForm';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {observer, inject} from 'mobx-react'
-
-@inject('AuthStore')
-@observer
 export default class Login extends Component {  
   render() {    
-    const {UserStore}=this.props;
     return (
       <React.Fragment>
         <Header style={styles.header}>

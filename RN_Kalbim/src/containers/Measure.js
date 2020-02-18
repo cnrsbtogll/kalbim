@@ -8,7 +8,7 @@ export default class Measure extends Component {
   render() {
 
     return (
-      <React.Fragment style={styles.wrapper}>
+      <React.Fragment >
         <View style={styles.container1}>
           <TouchableOpacity style={styles.itemContainer}>
             <Image source={require('../img/pulse22.png')} style={styles.logo} />
@@ -55,11 +55,7 @@ export default class Measure extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  wrapper:{
-    flex:1,
-    backgroundColor:colors.black,
-  },
+const styles = StyleSheet.create({  
   container1: {
     flex: 1,
     flexDirection: 'column',

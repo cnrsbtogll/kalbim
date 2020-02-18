@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import 'react-native-gesture-handler';
 import Router from './src/Router';
-import firebase from 'firebase';
+import NavigationService from './src/NavigationService';
+import firebase from '@react-native-firebase/app';
+import '@react-native-firebase/auth';
 
 //mobx store
 import store from './src/store';
@@ -10,7 +12,11 @@ import {Provider} from 'mobx-react';
 console.disableYellowBox = true;
 
 export default class App extends Component {
-  componentWillMount() {
+  // state={
+  //   status:false
+  // }
+
+  componentDidMount() {
     const firebaseConfig = {
       apiKey: 'AIzaSyB1I0NItpAv3sI_IbAB5wbQd0EOxCpXH1U',
       authDomain: 'kalbim-532f8.firebaseapp.com',
@@ -22,13 +28,19 @@ export default class App extends Component {
       measurementId: 'G-PZBS372TEV',
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
     //firebase.analytics();
   }
   render() {
     return (
       <Provider {...store}>
-        <Router />
+        <Router
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }
