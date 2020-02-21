@@ -1,4 +1,6 @@
-import {createAppContainer,  createSwitchNavigator} from 'react-navigation';
+import React from 'react';
+import {Avatar, Button} from 'react-native-elements';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 // auth loading
@@ -19,13 +21,13 @@ const AuthStack = createStackNavigator(
       screen: Logout,
       navigationOptions: {
         headerShown: false,
-      }
+      },
     },
     Login: {
       screen: Login,
       navigationOptions: {
         title: 'Giriş',
-        headerTitleAlign:'center',
+        headerTitleAlign: 'center',
         headerShown: false,
       },
     },
@@ -33,7 +35,7 @@ const AuthStack = createStackNavigator(
       screen: CreateAccount,
       navigationOptions: {
         title: 'Hesap Oluştur',
-        headerTitleAlign:'center',
+        headerTitleAlign: 'center',
         headerShown: false,
       },
     },
@@ -45,16 +47,34 @@ const AppStack = createStackNavigator({
   Home: {
     screen: Home,
     navigationOptions: {
-      title: 'Anasayfa',
-      headerShown: false,
+      headerLeft: () => (
+        <Avatar
+          size='small'
+          rounded
+          icon={{name: 'user', type: 'font-awesome'}}
+          onPress={() => alert('avatar çalışıyor!')}
+          containerStyle={{marginLeft: 5}}
+          showEditButton
+        />
+      ),
+      headerRight: () => (
+      <Button 
+      buttonStyle={{backgroundColor:colors.tabbarcolor}}
+      title="Cihaza Bağlan" 
+      />
+      ),
+      headerTitle: '',
+      headerShown:false,
+      headerTintColor: 'white',
+      headerStyle: {backgroundColor: colors.tabbarcolor},
     },
-  },  
+  },
 });
 const SwitchNavigator = createSwitchNavigator(
   {
-   AuthLoading: {
-     screen: AuthLoading,
-   },
+    AuthLoading: {
+      screen: AuthLoading,
+    },
     App: AppStack,
     Auth: AuthStack,
   },

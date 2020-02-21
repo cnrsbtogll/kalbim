@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Keyboard} from 'react-native';
 import HomeTabRouter from '../../containers/HomeTabRouter';
 import colors from '../../styles/colors';
 import {View} from 'native-base';
 
 export default class index extends Component {
+ 
   render() {
+    Keyboard.dismiss();
     return (
       <View style={styles.wrapper}>
         <HomeTabRouter />

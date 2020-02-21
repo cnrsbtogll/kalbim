@@ -23,7 +23,7 @@ const HomeTabRouter = createBottomTabNavigator(
       screen: History,
       navigationOptions: {
         title: 'Geçmiş',
-        tabBarIcon: ({ tintColor }) => (<Icon name="history" size={22} color={tintColor} />)
+        tabBarIcon: ({ tintColor }) => (<Icon name="history" size={22} color={tintColor} />),        
       }
     },
     Emergency: {
