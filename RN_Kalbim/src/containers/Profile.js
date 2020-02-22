@@ -13,6 +13,10 @@ import {
   Title,
 } from 'native-base';
 import colors from '../styles/colors';
+
+import {inject} from 'mobx-react'
+
+@inject('AuthStore')
 export default class ListIconExample extends Component {
   render() {
     return (
@@ -23,7 +27,10 @@ export default class ListIconExample extends Component {
           </Body>
         </Header>
         <Content>
-          <ListItem icon>
+          <ListItem 
+          icon 
+          onPress={() => alert('Ayarlar çalışıyor!')}
+          >
             <Left>
               <Button style={{backgroundColor: '#FF9501'}}>
                 <Icon active name="settings" />
@@ -36,7 +43,10 @@ export default class ListIconExample extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon>
+          <ListItem 
+          icon
+          onPress={() => alert('Hakkında çalışıyor!')}
+          >
             <Left>
               <Button style={{backgroundColor: '#007AFF'}}>
                 <Icon active name="information" />
@@ -49,7 +59,10 @@ export default class ListIconExample extends Component {
               <Icon active name="arrow-forward" />
             </Right>
           </ListItem>
-          <ListItem icon>
+          <ListItem 
+          icon
+          onPress={() => this.props.AuthStore.removeToken()}
+          >
             <Left>
               <Button style={{backgroundColor: colors.redgoogleloginbutton}}>
                 <Icon active name="log-out" />

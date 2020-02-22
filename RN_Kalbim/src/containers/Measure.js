@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, Image, Dimensions} from 'react-native';
 import {
   Container,
   Header,
@@ -8,54 +8,58 @@ import {
   Button,
   Right,
   Left,
+  Text
 } from 'native-base';
 import {Avatar} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
-
-export default class Measure extends Component {
-  onPress = () => {
-    alert('bağlandı');
-  };
+export default class Emergency extends Component {
   render() {
     return (
-      <React.Fragment>
+      <Container style={{backgroundColor: colors.containercolor}}>
         <Header transparent>
-          <Left style={{flexDirection:'row', alignItems:'center'}}>
+          <Left style={{flexDirection: 'row', alignItems: 'center'}}>
             <Button transparent>
               <Avatar
                 size="medium"
                 rounded
                 icon={{name: 'user', type: 'font-awesome'}}
                 onPress={() => alert('avatar çalışıyor!')}
-                containerStyle={{margin: 2}}
+                //containerStyle={{margin: 2}}
                 showEditButton
               />
-            </Button >
-            <Text style={{color:colors.white}}>Misafir</Text>
+            </Button>
+            <Text style={{color: colors.white}}>Misafir</Text>
           </Left>
           <Body>
             <Title></Title>
           </Body>
           <Right>
-            <Button style={{backgroundColor:colors.boxcolor}}
-            onPress={() => alert('Bağlandı')} >              
-              <Text style={{color:colors.white}}>Cihaza</Text>
-              <Text style={{color:colors.white}}>Bağlan</Text>
+            <Button
+              style={{backgroundColor: colors.boxcolor}}
+              onPress={() => alert('Bağlandı')}>
+              <Text style={{color: colors.white}}>Cihaza Bağlan</Text>
             </Button>
           </Right>
         </Header>
-
-        <View style={styles.container1}>
-          <TouchableOpacity style={styles.itemContainer}>
-            <Image source={require('../img/pulse22.png')} style={styles.logo} />
-            <Text style={styles.itemName}>EKG & Solunum Ritmi</Text>
-            <Text style={styles.itemCode}></Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.container2}>
-          <View style={styles.itemContainer2}>
+        <Grid>
+          <Row size={1} style={styles.boxes}>
+          <MyBoxButton
+              text="EKG & Solunum Ritmi"
+              text2=""
+              icon={
+                <Image
+                  source={require('../img/pulse22.png')}
+                  style={styles.logo}
+                  resizeMode="contain"
+                />
+              }
+              backgroundColor={colors.background}
+            />         
+          </Row>
+          <Row size={1} style={styles.boxes}>
+            <Col style={styles.boxes}>
             <MyBoxButton
               text="Kan Basıncı"
               text2="mmHg"
@@ -67,21 +71,8 @@ export default class Measure extends Component {
               }
               backgroundColor={colors.background}
             />
-          </View>
-          <View style={styles.itemContainer2}>
-            <MyBoxButton
-              text="SpO₂"
-              text2="O₂%"
-              icon={
-                <Image
-                  source={require('../img/drop.png')}
-                  style={styles.logo2}
-                />
-              }
-              backgroundColor={colors.background}
-            />
-          </View>
-          <View style={styles.itemContainer2}>
+            </Col>
+            <Col style={styles.boxes}>
             <MyBoxButton
               text="Ateş"
               text2="°C"
@@ -93,8 +84,23 @@ export default class Measure extends Component {
               }
               backgroundColor={colors.background}
             />
-          </View>
-          <View style={styles.itemContainer2}>
+            </Col>
+          </Row>
+          <Row size={1} style={styles.boxes}>
+            <Col style={styles.boxes}>
+            <MyBoxButton
+              text="SpO₂"
+              text2="O₂%"
+              icon={
+                <Image
+                  source={require('../img/drop.png')}
+                  style={styles.logo2}
+                />
+              }
+              backgroundColor={colors.background}
+            />
+            </Col>
+            <Col style={styles.boxes}>
             <MyBoxButton
               text="Kalp Ritmi"
               text2="BMP"
@@ -106,39 +112,29 @@ export default class Measure extends Component {
               }
               backgroundColor={colors.background}
             />
-          </View>
-        </View>
-      </React.Fragment>
+            </Col>
+          </Row>
+        </Grid>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container1: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
+  boxes: {
     backgroundColor: colors.background,
-    marginBottom: 1,
-    padding: 5,
+    borderWidth: 2,
+    borderColor: colors.containercolor,
   },
-  itemContainer: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-end',
+  logo: {    
+    width: '95%',
+    height: '95%',
+    resizeMode: 'center'
   },
-  container2: {
-    flex: 2,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    flexWrap: 'wrap',
-  },
-  itemContainer2: {
-    height: '49%',
-    width: '49.5%',
-    backgroundColor: colors.background,
-    margin: 1,
+  logo2: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain'
   },
   itemName: {
     fontSize: 16,
@@ -149,14 +145,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#fff',
-  },
-  logo: {
-    height: 150,
-    alignSelf: 'center',
-    width: '100%',
-  },
-  logo2: {
-    height: 100,
-    width: 100,
   },
 });

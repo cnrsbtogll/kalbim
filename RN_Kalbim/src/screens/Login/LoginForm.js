@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
-import auth, {firebase} from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth';
 import validations from './validations';
 
 import {observer, inject} from 'mobx-react';
@@ -20,7 +20,7 @@ import {observer, inject} from 'mobx-react';
 @inject('AuthStore')
 @observer
 export default class LoginForm extends Component {
-  _handleSubmit = async ({email, password}) => {
+  _handleSubmit = async ({email, password}, bag) => {
     try {
        await auth()
         .signInWithEmailAndPassword(email, password)
@@ -36,8 +36,11 @@ export default class LoginForm extends Component {
             alert('Şifre hatalı.');
           }
         });
+        bag.setSubmitting(false);
       
     } catch (e) {
+      bag.setSubmitting(false);
+			bag.setErrors(e)
       alert('Beklenmedik bir hata oluştu. Yeniden deneyin.');
     }
   };
@@ -116,8 +119,8 @@ export default class LoginForm extends Component {
                 onPress={handleSubmit}
                 style={styles.buttonTextWrapper}>
                 <Icon name="log-in" />
-                {isSubmitting && <Spinner size={'small'} color={'white'} />}
-                <Text style={styles.buttonText}>Giriş</Text>
+                {isSubmitting ? <Spinner style={styles.buttonText} size={'small'} color={'white'}/> : <Text style={styles.buttonText}>Giriş</Text>}
+                
                 <Text style={{width: 60}} />
               </Button>
             </Content>
@@ -151,8 +154,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonTextWrapper: {
+    display:"flex",
     flexDirection: 'row',
-    alignItems: 'stretch',
+    //justifyContent: 'flex-start',
+    //alignItems:'flex-end',
     marginTop: 10,
     backgroundColor: colors.blueloginbutton,
   },
