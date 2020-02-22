@@ -9,7 +9,7 @@ export default class index extends Component {
   render() {
     Keyboard.dismiss();
     return (
-      <View style={styles.wrapper}>
+       <View style={styles.wrapper}>
         <HomeTabRouter />
       </View>
     );
@@ -19,6 +19,5 @@ export default class index extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.containercolor,
   },
 });
