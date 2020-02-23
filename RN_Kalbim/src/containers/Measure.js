@@ -12,8 +12,10 @@ import {
 } from 'native-base';
 import {Avatar} from 'react-native-elements';
 import {Col, Row, Grid} from 'react-native-easy-grid';
+import ImagePicker from 'react-native-image-picker';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
+
 export default class Emergency extends Component {
   render() {
     return (

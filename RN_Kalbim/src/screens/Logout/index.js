@@ -3,6 +3,7 @@ import MyButton from '../../components/MyButton';
 import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 import colors from '../../styles/colors';
 import {Icon} from 'native-base';
+import {google, facebook} from 'react-native-simple-auth';
 
 export default class Logout extends Component {
   constructor(props) {
@@ -15,12 +16,26 @@ export default class Logout extends Component {
   onLoginPress() {
     this.props.navigation.navigate('Login');
   }
-  onFacebookLoginPress(){
-    alert("Facebook Login Button Pressed")
+  onFacebookLoginPress() {
+    alert('Facebook Login Button Pressed');
   }
-  onGoogleLoginPress (){
-    alert("Google Login Button Pressed")
-    };
+  onGoogleLoginPress() {
+    debugger;
+    google({
+      appId: '837905386058-cn2lok7btqccrr06h1o2mura1phshcfg.apps.googleusercontent.com',
+      callback: 'http://localhost',
+    })
+      .then(info => {
+        // info.user - user details from the provider
+        // info.credentials - tokens from the provider
+        this.props.navigation.navigate('App');
+      })
+      .catch(error => {
+        // error.code
+        // error.description
+        alert('Hata');
+      });
+  }
   onCreateAccountPress() {
     this.props.navigation.navigate('CreateAccount');
   }

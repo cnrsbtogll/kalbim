@@ -190,10 +190,14 @@ android {
 
 dependencies {
     implementation project(':react-native-vector-icons')
+    implementation project(':react-native-image-picker')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+    testİmplementation 'junit:junit:4.12'
+    androidTestİmplementation 'com.android.support.test:runner:1.0.2'
+    androidTestİmplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
