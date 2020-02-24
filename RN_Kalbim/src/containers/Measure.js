@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image, Dimensions} from 'react-native';
+import {StyleSheet, Image, ActivityIndicator} from 'react-native';
 import {
   Container,
   Header,
@@ -17,19 +17,26 @@ import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
 
 const options = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  title: 'Fotoğraf Seç',
+  //customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
   storageOptions: {
     skipBackup: true,
     path: 'images',
   },
+  allowsEditing: true,  
 };
 
 export default class Emergency extends Component {
-  state={
-    avatarSource:null
-  };
-  onSelectPicture=()=>{
+    constructor(props){
+      super(props)
+      this.state={
+        avatarSource: {uri: "../img/icons8-user-16.png"}
+    }
+    
+  
+  }
+  
+  onSelectPicture=()=>{    
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
     
@@ -40,13 +47,14 @@ export default class Emergency extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
+       // const source = { uri: response.uri };
     
         // You can also display the image using data:
-         source = { uri: '../img/user.png'};
-    
+         //const source = { uri: 'data:../img/icons8-user-16.png;base64,' + response.data};        
         this.setState({
-          avatarSource: source,
+          avatarSource:  {
+            uri: response.uri
+          },
         });
       }
     });
@@ -60,8 +68,8 @@ export default class Emergency extends Component {
               <Avatar
                 size="medium"
                 rounded
-                source={{uri:this.state.avatarSource}}
-                //icon={{name: 'user', type: 'font-awesome'}}
+                icon={{name: 'user', type: 'font-awesome'}}
+                source={this.state.avatarSource}
                 onPress={this.onSelectPicture}
                 showEditButton
               />
