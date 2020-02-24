@@ -16,7 +16,41 @@ import ImagePicker from 'react-native-image-picker';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
 
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
+
 export default class Emergency extends Component {
+  state={
+    avatarSource:null
+  };
+  onSelectPicture=()=>{
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+    
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+    
+        // You can also display the image using data:
+         source = { uri: '../img/user.png'};
+    
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
+  }
   render() {
     return (
       <Container style={{backgroundColor: colors.containercolor}}>
@@ -26,9 +60,9 @@ export default class Emergency extends Component {
               <Avatar
                 size="medium"
                 rounded
-                icon={{name: 'user', type: 'font-awesome'}}
-                onPress={() => alert('avatar çalışıyor!')}
-                //containerStyle={{margin: 2}}
+                source={{uri:this.state.avatarSource}}
+                //icon={{name: 'user', type: 'font-awesome'}}
+                onPress={this.onSelectPicture}
                 showEditButton
               />
             </Button>
@@ -40,7 +74,7 @@ export default class Emergency extends Component {
           <Right>
             <Button
               style={{backgroundColor: colors.boxcolor}}
-              onPress={() => alert('Bağlandı')}>
+              onPress={() => alert("bağlandı")}>
               <Text style={{color: colors.white}}>Cihaza Bağlan</Text>
             </Button>
           </Right>
