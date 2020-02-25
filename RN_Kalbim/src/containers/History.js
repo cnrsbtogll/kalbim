@@ -19,7 +19,7 @@ import colors from '../styles/colors';
 export default class CardItemButton extends Component {
   render() {
     return (
-      <Container style={{backgroundColor: colors.background}}>
+      <Container style={{backgroundColor: colors.containercolor}}>
         <Header transparent>
           <Body style={{alignItems: 'center'}}>
             <Title>Geçmiş</Title>

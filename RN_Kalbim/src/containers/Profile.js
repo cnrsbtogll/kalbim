@@ -17,10 +17,10 @@ import colors from '../styles/colors';
 import {inject} from 'mobx-react'
 
 @inject('AuthStore')
-export default class ListIconExample extends Component {
+export default class Profile extends Component {
   render() {
     return (
-      <Container style={{backgroundColor: colors.background}}>
+      <Container style={{backgroundColor: colors.containercolor}}>
         <Header transparent >
           <Body style={{alignItems:'center'}}>
             <Title>Hesap</Title>

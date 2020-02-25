@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
+import { StatusBar } from 'react-native'
 import 'react-native-gesture-handler';
 import Router from './src/Router';
 import NavigationService from './src/NavigationService';
-import firebase from '@react-native-firebase/app';
-import '@react-native-firebase/auth';
+import * as firebase from 'firebase';
 
 //mobx store
 import store from './src/store';
@@ -36,11 +36,14 @@ export default class App extends Component {
   render() {
     return (
       <Provider {...store}>
+        <Fragment>
+          <StatusBar hidden={true}/>
         <Router
           ref={navigatorRef => {
             NavigationService.setTopLevelNavigator(navigatorRef);
           }}
-        />
+        />        
+        </Fragment>
       </Provider>
     );
   }

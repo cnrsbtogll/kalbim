@@ -1,5 +1,3 @@
-import React from 'react';
-import {Avatar, Button} from 'react-native-elements';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
@@ -46,27 +44,11 @@ const AuthStack = createStackNavigator(
 const AppStack = createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: {
-      headerLeft: () => (
-        <Avatar
-          size='small'
-          rounded
-          icon={{name: 'user', type: 'font-awesome'}}
-          onPress={() => alert('avatar çalışıyor!')}
-          containerStyle={{marginLeft: 5}}
-          showEditButton
-        />
-      ),
-      headerRight: () => (
-      <Button 
-      buttonStyle={{backgroundColor:colors.tabbarcolor}}
-      title="Cihaza Bağlan" 
-      />
-      ),
+    navigationOptions: {      
       headerTitle: '',
       headerShown:false,
       headerTintColor: 'white',
-      headerStyle: {backgroundColor: colors.tabbarcolor},
+      headerStyle: {backgroundColor: colors.tabbarcolor}
     },
   },
 });

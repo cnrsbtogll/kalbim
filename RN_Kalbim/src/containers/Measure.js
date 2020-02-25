@@ -1,92 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image, ActivityIndicator} from 'react-native';
-import {
-  Container,
-  Header,
-  Title,
-  Body,
-  Button,
-  Right,
-  Left,
-  Text
-} from 'native-base';
-import {Avatar} from 'react-native-elements';
+import {StyleSheet, Image} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
-import ImagePicker from 'react-native-image-picker';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
-
-const options = {
-  title: 'Fotoğraf Seç',
-  //customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-  allowsEditing: true,  
-};
-
-export default class Emergency extends Component {
-    constructor(props){
-      super(props)
-      this.state={
-        avatarSource: {uri: "../img/icons8-user-16.png"}
-    }
-    
-  
-  }
-  
-  onSelectPicture=()=>{    
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-    
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-       // const source = { uri: response.uri };
-    
-        // You can also display the image using data:
-         //const source = { uri: 'data:../img/icons8-user-16.png;base64,' + response.data};        
-        this.setState({
-          avatarSource:  {
-            uri: response.uri
-          },
-        });
-      }
-    });
-  }
+export default class Measure extends Component {    
   render() {
-    return (
-      <Container style={{backgroundColor: colors.containercolor}}>
-        <Header transparent>
-          <Left style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Button transparent>
-              <Avatar
-                size="medium"
-                rounded
-                icon={{name: 'user', type: 'font-awesome'}}
-                source={this.state.avatarSource}
-                onPress={this.onSelectPicture}
-                showEditButton
-              />
-            </Button>
-            <Text style={{color: colors.white}}>Misafir</Text>
-          </Left>
-          <Body>
-            <Title></Title>
-          </Body>
-          <Right>
-            <Button
-              style={{backgroundColor: colors.boxcolor}}
-              onPress={() => alert("bağlandı")}>
-              <Text style={{color: colors.white}}>Cihaza Bağlan</Text>
-            </Button>
-          </Right>
-        </Header>
+    return (      
         <Grid>
           <Row size={1} style={styles.boxes}>
           <MyBoxButton
@@ -100,12 +19,13 @@ export default class Emergency extends Component {
                 />
               }
               backgroundColor={colors.background}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal')}}
             />         
           </Row>
           <Row size={1} style={styles.boxes}>
             <Col style={styles.boxes}>
             <MyBoxButton
-              text="Kan Basıncı"
+              text="Tansiyon"
               text2="mmHg"
               icon={
                 <Image
@@ -158,8 +78,7 @@ export default class Emergency extends Component {
             />
             </Col>
           </Row>
-        </Grid>
-      </Container>
+        </Grid>     
     );
   }
 }

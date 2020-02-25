@@ -12,7 +12,7 @@ import {
 } from 'native-base';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
-import auth from '@react-native-firebase/auth';
+import * as firebase from 'firebase';
 import validations from './validations';
 
 import {observer, inject} from 'mobx-react';
@@ -22,7 +22,7 @@ import {observer, inject} from 'mobx-react';
 export default class LoginForm extends Component {
   _handleSubmit = async ({email, password}, bag) => {
     try {
-       await auth()
+       await firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(this.onLoginSuccess.bind(this))
         .catch(function(error) {
@@ -46,7 +46,7 @@ export default class LoginForm extends Component {
   };
 
   onLoginSuccess = async () =>{
-    const mToken = await auth().currentUser.getIdToken(true);
+    const mToken = await firebase.auth().currentUser.getIdToken(true);
     this.props.navigation.navigate('Home');
     this.props.AuthStore.saveToken(mToken);
   }

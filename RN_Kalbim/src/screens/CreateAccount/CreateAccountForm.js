@@ -12,13 +12,13 @@ import {
 } from 'native-base';
 import {Formik} from 'formik';
 import colors from '../../styles/colors';
-import auth from '@react-native-firebase/auth';
+import * as firebase from 'firebase';
 import validations from './validations';
 
 export default class CreateAccountForm extends Component {
   _handleSubmit = async ({email, password}) => {
     try {
-      auth()
+      firebase.auth()
         .createUserWithEmailAndPassword(email, password)
         .catch(function(error) {
           var errorCode = error.code;
