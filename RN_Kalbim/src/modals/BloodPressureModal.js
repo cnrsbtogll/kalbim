@@ -1,14 +1,16 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React, {Component} from 'react';
+import {StyleSheet,View} from 'react-native';
+import RNSpeedometer from 'react-native-speedometer'
+
 
 export default class BloodPressureModal extends Component {
-    render() {
-        return (
-            <View>
-                <Text> BloodPressureModal </Text>
-            </View>
-        )
-    }
+  render() {
+    return (
+      <View>
+        <RNSpeedometer></RNSpeedometer>
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

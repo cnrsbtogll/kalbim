@@ -10,7 +10,7 @@ export default class MeasureModal extends Component {
   render() {
     return (
       <Container>
-        <Tabs>
+        <Tabs initialPage={1}>
           <Tab heading={ <TabHeading><Text>EKG</Text></TabHeading>}>
             <Tab1 />
           </Tab>
