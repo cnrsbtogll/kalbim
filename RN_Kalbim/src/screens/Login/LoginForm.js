@@ -22,6 +22,7 @@ import {observer, inject} from 'mobx-react';
 export default class LoginForm extends Component {
   _handleSubmit = async ({email, password}, bag) => {
     try {
+      debugger
        await firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(this.onLoginSuccess.bind(this))

@@ -5,7 +5,6 @@ import Tab2 from './BloodPressureModal';
 import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
-import colors from '../styles/colors';
 export default class MeasureModal extends Component {
   render() {
     return (
