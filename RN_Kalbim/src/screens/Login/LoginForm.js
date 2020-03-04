@@ -14,6 +14,7 @@ import {Formik} from 'formik';
 import colors from '../../styles/colors';
 import * as firebase from 'firebase';
 import validations from './validations';
+import DeviceInfo, { getDeviceId } from 'react-native-device-info';
 
 import {observer, inject} from 'mobx-react';
 
@@ -47,9 +48,12 @@ export default class LoginForm extends Component {
   };
 
   onLoginSuccess = async () =>{
-    const mToken = await firebase.auth().currentUser.getIdToken(true);
+    const mToken = await firebase.auth().currentUser.getIdToken(true);    
+    //const deviceID=DeviceInfo.getUniqueID(); 
+    //debugger   
     this.props.navigation.navigate('Home');
     this.props.AuthStore.saveToken(mToken);
+    //this.props.AuthStore.saveDeviceID(deviceID);
   }
   render() {
     return (

@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { Container,TabBarTop, Tab, Tabs, TabHeading, Text } from 'native-base';
+import { Container, Tab, Tabs, TabHeading, Text } from 'native-base';
 import Tab1 from './EKGModal';
 import Tab2 from './BloodPressureModal';
 import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
+import { observer,inject } from 'mobx-react'
+
+
+@inject('InitialPageStore')
 export default class MeasureModal extends Component {
   render() {
+    const {InitialPageStore}=this.props;
     return (
       <Container>
-        <Tabs initialPage={1}>
+        <Tabs initialPage={InitialPageStore.initialPage}>
           <Tab heading={ <TabHeading><Text>EKG</Text></TabHeading>}>
             <Tab1 />
           </Tab>

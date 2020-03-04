@@ -61,7 +61,7 @@ export default class Profile extends Component {
           </ListItem>
           <ListItem 
           icon
-          onPress={() => this.props.AuthStore.removeToken()}
+          onPress={() => this.props.AuthStore.removeDeviceID()}
           >
             <Left>
               <Button style={{backgroundColor: colors.redgoogleloginbutton}}>

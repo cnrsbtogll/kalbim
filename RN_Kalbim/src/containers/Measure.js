@@ -3,8 +3,13 @@ import {StyleSheet, Image} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
+import { observer,inject } from 'mobx-react'
+
+@observer
+@inject('InitialPageStore')
 export default class Measure extends Component {    
   render() {
+    const {InitialPageStore}=this.props;
     return (      
         <Grid>
           <Row size={1} style={styles.boxes}>
@@ -19,7 +24,9 @@ export default class Measure extends Component {
                 />
               }
               backgroundColor={colors.background}
-              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal')}}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
+              InitialPageStore.initialPage=0
+              }}
             />         
           </Row>
           <Row size={1} style={styles.boxes}>
@@ -34,6 +41,9 @@ export default class Measure extends Component {
                 />
               }
               backgroundColor={colors.background}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
+              InitialPageStore.initialPage=1
+              }}
             />
             </Col>
             <Col style={styles.boxes}>
@@ -47,6 +57,9 @@ export default class Measure extends Component {
                 />
               }
               backgroundColor={colors.background}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
+              InitialPageStore.initialPage=2
+              }}
             />
             </Col>
           </Row>
@@ -62,6 +75,9 @@ export default class Measure extends Component {
                 />
               }
               backgroundColor={colors.background}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
+              InitialPageStore.initialPage=4
+              }}
             />
             </Col>
             <Col style={styles.boxes}>
@@ -75,6 +91,9 @@ export default class Measure extends Component {
                 />
               }
               backgroundColor={colors.background}
+              handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
+              InitialPageStore.initialPage=3
+              }}
             />
             </Col>
           </Row>
