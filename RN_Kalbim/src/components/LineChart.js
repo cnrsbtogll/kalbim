@@ -1,17 +1,18 @@
 import React from 'react'
 import { LineChart, Grid } from 'react-native-svg-charts'
+import colors from '../styles/colors'
  
 export default class SpoModal extends React.PureComponent {
  
     render() {
  
-        const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ]
+        const data = [ 0, 0, 65, -54, 55, -25, 0, 0, 0, 0, 20, -15, 32, 0, 0, 40, -65, 85, -75, 35, 0, 0, 54, -20, 0, 0, 65, -54, 55, -25, 0, 0, 0, 0, 50, -60, 50, 0, 0, 40, 95, -24, 85, -75, 35, 0, 0, 54, -20,   ]
  
         return (
             <LineChart
                 style={{ height: 200 }}
                 data={ data }
-                svg={{ stroke: 'rgb(134, 65, 244)' }}
+                svg={{ stroke: colors.iconcolor }}
                 contentInset={{ top: 20, bottom: 20 }}
             >
                 <Grid/>

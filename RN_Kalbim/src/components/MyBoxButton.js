@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
   wrapper: {
     display: 'flex',
     width:'100%',
-    height:'100%',
+    height:'80%',
     justifyContent:'center',
-    paddingLeft:30,
-    paddingTop:10
+    paddingTop:10,
     
+        
     
   },
   buttonTextWrapper:{

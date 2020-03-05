@@ -7,5 +7,6 @@ export default {
     blueloginbutton:'#13C9F2',
     boxcolor:'#454545',
     tabbarcolor:'#282828',
-    containercolor:'#181d21'
+    containercolor:'#181d21',
+    iconcolor:'#1185e0'
 }

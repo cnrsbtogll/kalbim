@@ -1,39 +1,70 @@
-import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import { Row, Col, Button, Grid} from 'native-base';
+import React, {Component} from 'react';
+import {StyleSheet} from 'react-native';
+import {
+  Container,
+  Content,
+  Card,
+  Row,
+  Col,
+  Text,
+  Button,
+} from 'native-base';
 import colors from '../styles/colors';
-import LineChart from '../components/LineChart'
-
-export default class EKGModal extends React.PureComponent {
+import LineChart from '../components/LineChart';
+export default class CardShowcaseExample extends Component {
   render() {
     return (
-      <Grid style={{backgroundColor: colors.background}}>
-        <Row size={1} >
-          <Col style={styles.col}>
-            <Text style={styles.text}>EKG & Solunum Hızı</Text>
-          </Col>
+      <Container style={{backgroundColor: colors.background}}>
+        <Content>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Text style={styles.text}>EKG & Solunum Ritmi</Text>
+            </Col>
+            <Col style={styles.col}>
+              <Text style={styles.text}>Sayfa Hızı:25mm/s</Text>
+              <Text style={styles.text}>Genlik:10mm/mV</Text>
+            </Col>
+          </Row>
+          <Card style={{flex: 0}}>
+            <LineChart />
+          </Card>
+          <Row style={styles.row}>
+            <Col style={styles.col}>
+              <Text style={styles.text}>SR Max :</Text>
 
-          <Col style={styles.col}>
-            <Text style={styles.text}>Sayfa Hızı:25mm/s</Text>
-            <Text style={styles.text}>Genlik:10mm/mV</Text>
-          </Col>
-        </Row>
-        <Row size={5} style={{padding: 10, backgroundColor: 'white'}}>        
-        <LineChart/>
-        </Row>
-        <Row size={2} style={styles.row}>
-          <Button style={{backgroundColor: colors.tabbarcolor}}>
-            <Text style={{color: colors.white}}>     Ölç     </Text>
-          </Button>
-        </Row>
-      </Grid>
+              <Text style={styles.text}>SR Min :</Text>
+
+              <Text style={styles.text}>Solunum Ritmi :</Text>
+            </Col>
+            <Col style={styles.col}>
+              <Text style={styles.text}>Kalp Ritmi : </Text>
+              <Text style={styles.text}>HRV :</Text>
+              <Text style={styles.text}>Mood :</Text>
+            </Col>
+          </Row>
+          <Row >
+            <Text></Text>           
+          </Row>
+          <Row >
+            <Text></Text>           
+          </Row>
+          <Row >
+            <Text></Text>           
+          </Row>
+          <Row style={styles.row}>
+            <Button style={{backgroundColor: colors.tabbarcolor}}>
+              <Text style={{color: colors.white}}> Ölç </Text>
+            </Button>
+          </Row>
+        </Content>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -44,8 +75,9 @@ const styles = StyleSheet.create({
     fontWeight: '100',
   },
   col: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    paddingLeft: 15,
   },
   text: {
     color: colors.white,

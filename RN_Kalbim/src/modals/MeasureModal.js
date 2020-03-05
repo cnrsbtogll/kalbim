@@ -18,7 +18,7 @@ export default class MeasureModal extends Component {
           <Tab heading={ <TabHeading><Text>EKG</Text></TabHeading>}>
             <Tab1 />
           </Tab>
-          <Tab heading={ <TabHeading><Text>Tansiyon</Text></TabHeading>}>
+          <Tab heading={ <TabHeading><Text>Tans.</Text></TabHeading>}>
             <Tab2 />
           </Tab>
           <Tab heading={ <TabHeading><Text>Ateş</Text></TabHeading>}>
@@ -27,7 +27,7 @@ export default class MeasureModal extends Component {
           <Tab heading={ <TabHeading><Text>Kalp Ritmi</Text></TabHeading>}>
             <Tab4 />
           </Tab>
-          <Tab heading={ <TabHeading><Text>SpO₂s</Text></TabHeading>}>
+          <Tab heading={ <TabHeading><Text>SpO₂</Text></TabHeading>}>
             <Tab5 />
           </Tab>
         </Tabs>

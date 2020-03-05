@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
-import {Button} from 'native-base';
-
 import RNSpeedometer from 'react-native-speedometer';
-
-import {Grid, Row, Col} from 'native-base';
+import {Grid, Row, Col, Button, Content, Container} from 'native-base';
 import colors from '../styles/colors';
 
 export default class BloodPressureModal extends Component {
@@ -72,6 +69,7 @@ export default class BloodPressureModal extends Component {
   render() {
     return (
       <Grid style={{backgroundColor:colors.background}}>
+        <Content>
         <Row>
           <Col style={styles.col}>
             <Text style={styles.text}>Büyük Tansiyon</Text>
@@ -85,6 +83,12 @@ export default class BloodPressureModal extends Component {
             <Text style={styles.text}>80 BPM</Text>
           </Col>
         </Row>
+        <Row style={styles.row}>
+        <Text> </Text>
+          </Row>
+          <Row style={styles.row}>
+        <Text> </Text>
+          </Row>
         <Row style={styles.row}>
           <Col style={styles.col}>
             <Text style={styles.text}>Büyük Tansiyon</Text>
@@ -109,12 +113,22 @@ export default class BloodPressureModal extends Component {
             />
           </Col>
         </Row>
+        <Row style={styles.row}>
+        <Text> </Text>
+          </Row>
+        <Row style={styles.row}>
+        <Text> </Text>
+          </Row>
+        <Row style={styles.row}>
+            <Text> </Text>
+          </Row>
 
         <Row style={styles.row}>
           <Button style={{backgroundColor:colors.tabbarcolor}}>
             <Text style={{color:colors.white}}>       Ölç       </Text>
           </Button>
         </Row>
+        </Content>
       </Grid>
     );
   }

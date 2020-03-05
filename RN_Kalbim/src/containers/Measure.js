@@ -3,7 +3,9 @@ import {StyleSheet, Image} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
+import LineChart from '../components/LineChart'
 import { observer,inject } from 'mobx-react'
+import { Container } from 'native-base';
 
 @observer
 @inject('InitialPageStore')
@@ -11,23 +13,24 @@ export default class Measure extends Component {
   render() {
     const {InitialPageStore}=this.props;
     return (      
-        <Grid>
+        <Container>
           <Row size={1} style={styles.boxes}>
-          <MyBoxButton
+          <MyBoxButton 
               text="EKG & Solunum Ritmi"
               text2=""
-              icon={
-                <Image
-                  source={require('../img/pulse22.png')}
-                  style={styles.logo}
-                  resizeMode="contain"
-                />
+              icon={ <LineChart ></LineChart>
+                // <Image
+                //   source={require('../img/pulse22.png')}
+                //   style={styles.logo}
+                //   resizeMode="contain"
+                // />
               }
               backgroundColor={colors.background}
               handleOnPress={()=>{this.props.navigation.navigate('MeasureModal');
               InitialPageStore.initialPage=0
               }}
-            />         
+            >
+            </MyBoxButton>         
           </Row>
           <Row size={1} style={styles.boxes}>
             <Col style={styles.boxes}>
@@ -97,13 +100,15 @@ export default class Measure extends Component {
             />
             </Col>
           </Row>
-        </Grid>     
+        </Container>     
     );
   }
 }
 
 const styles = StyleSheet.create({
   boxes: {
+    flexDirection:'row',
+    justifyContent:'center',
     backgroundColor: colors.background,
     borderWidth: 2,
     borderColor: colors.containercolor,

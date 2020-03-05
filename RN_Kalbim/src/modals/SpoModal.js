@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import {Grid, Row, Col, Button} from 'native-base';
+import {Grid, Row, Col, Button, Content} from 'native-base';
 import colors from '../styles/colors';
 
 const MAX_POINTS_TEMPERATURE = 100;
@@ -14,6 +14,7 @@ export default class SpoModal extends Component {
       (this.state.temperature / MAX_POINTS_TEMPERATURE) * 100;
     return (
       <Grid style={{backgroundColor:colors.background}}>
+        <Content>
         <Row>
           <Col style={styles.col}>
             <Text style={styles.text}>SpO₂</Text>
@@ -45,10 +46,16 @@ export default class SpoModal extends Component {
           </AnimatedCircularProgress>
         </Row>
         <Row style={styles.row}>
+            <Text> </Text>
+            <Text> </Text>
+            <Text> </Text>
+          </Row>
+        <Row style={styles.row}>
           <Button style={{backgroundColor:colors.tabbarcolor}}>
             <Text style={{color:colors.white}}>       Ölç       </Text>
           </Button>
         </Row>
+        </Content>
       </Grid>
     );
   }
