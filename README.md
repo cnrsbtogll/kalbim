@@ -13,5 +13,5 @@ Merhaba!  **Kalbim** ile dilediğiniz zaman, dilediğiniz yerde EKG çekin, dokt
 |![](Images/6.png) | ![](Images/7.png) |
 |--|--|
 |![](Images/8.png) | ![](Images/9.png) |
-|--|--|
+
 
