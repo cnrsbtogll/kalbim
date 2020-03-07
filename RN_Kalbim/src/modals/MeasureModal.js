@@ -1,38 +1,61 @@
-import React, { Component } from 'react';
-import { Container, Tab, Tabs, TabHeading, Text } from 'native-base';
+import {createAppContainer} from 'react-navigation';
+import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
+
+import colors from '../styles/colors';
 import Tab1 from './EKGModal';
 import Tab2 from './BloodPressureModal';
 import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
-import { observer,inject } from 'mobx-react'
 
+//import { observer,inject } from 'mobx-react'
 
-@inject('InitialPageStore')
-export default class MeasureModal extends Component {
-  render() {
-    const {InitialPageStore}=this.props;
-    return (
-      <Container>
-        <Tabs initialPage={InitialPageStore.initialPage}>
-          <Tab heading={ <TabHeading><Text>EKG</Text></TabHeading>}>
-            <Tab1 />
-          </Tab>
-          <Tab heading={ <TabHeading><Text>Tans.</Text></TabHeading>}>
-            <Tab2 />
-          </Tab>
-          <Tab heading={ <TabHeading><Text>Ateş</Text></TabHeading>}>
-            <Tab3 />
-          </Tab>
-          <Tab heading={ <TabHeading><Text>Kalp Ritmi</Text></TabHeading>}>
-            <Tab4 />
-          </Tab>
-          <Tab heading={ <TabHeading><Text>SpO₂</Text></TabHeading>}>
-            <Tab5 />
-          </Tab>
-        </Tabs>
-      </Container>
-      
-    );
-  }
-}
+// @inject('InitialPageStore')
+const MeasureTabNavigator = createMaterialTopTabNavigator(
+  {
+    EKGModal: {
+      screen: Tab1,
+      navigationOptions: {
+        title: 'EKG',
+      },
+    },
+    BloodPressureModal: {
+      screen: Tab2,
+      navigationOptions: {
+        title: 'Tansiyon',
+      },
+    },
+    BodyTemperatureModal: {
+      screen: Tab3,
+      navigationOptions: {
+        title: 'Ateş',
+      },
+    },
+    HeartRateModal: {
+      screen: Tab4,
+      navigationOptions: {
+        title: 'Kalp Ritmi',
+      },
+    },
+    SpoModal: {
+      screen: Tab5,
+      navigationOptions: {
+        title: 'SpO₂',
+      },
+    },
+  },
+  {
+    tabBarOptions: {
+      fontWeight: '600',
+      // activeTintColor: colors.white,
+      activeTintColor: colors.white,
+      inactiveTintColor: '#889094',
+      style: {
+        backgroundColor: colors.background,
+      },
+      labelStyle: {fontSize: 11},
+    },
+    initialRouteName: 'SpoModal',
+  },
+);
+export default createAppContainer(MeasureTabNavigator);
