@@ -8,6 +8,7 @@ import Measure from './Measure';
 import History from './History';
 import Emergency from './Emergency';
 import Profile from './Profile';
+import Settings from './Settings';
 import colors from '../styles/colors';
 
 const MeasureStack = createStackNavigator({
@@ -85,7 +86,14 @@ const ModalStack = createStackNavigator(
     },
     MeasureModal: {
       screen: MeasureModal,
-    }
+    },
+    Settings:{
+      screen:Settings,
+    },
+    // Profile:{
+    //   screen:Profile
+    // }
+
   },
   {
     mode: 'modal',

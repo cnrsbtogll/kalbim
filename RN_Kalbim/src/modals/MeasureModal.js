@@ -8,9 +8,7 @@ import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
 
-//import { observer,inject } from 'mobx-react'
 
-// @inject('InitialPageStore')
 const MeasureTabNavigator = createMaterialTopTabNavigator(
   {
     EKGModal: {
@@ -22,19 +20,19 @@ const MeasureTabNavigator = createMaterialTopTabNavigator(
     BloodPressureModal: {
       screen: Tab2,
       navigationOptions: {
-        title: 'Tansiyon',
+        title: 'TANSİYON',
       },
     },
     BodyTemperatureModal: {
       screen: Tab3,
       navigationOptions: {
-        title: 'Ateş',
+        title: 'ATEŞ',
       },
     },
     HeartRateModal: {
       screen: Tab4,
       navigationOptions: {
-        title: 'Kalp Ritmi',
+        title: 'KALP RİTMİ',
       },
     },
     SpoModal: {
@@ -47,7 +45,6 @@ const MeasureTabNavigator = createMaterialTopTabNavigator(
   {
     tabBarOptions: {
       fontWeight: '600',
-      // activeTintColor: colors.white,
       activeTintColor: colors.white,
       inactiveTintColor: '#889094',
       style: {
@@ -55,7 +52,8 @@ const MeasureTabNavigator = createMaterialTopTabNavigator(
       },
       labelStyle: {fontSize: 11},
     },
-    initialRouteName: 'SpoModal',
+    initialRouteName:"HeartRateModal"
   },
+  
 );
 export default createAppContainer(MeasureTabNavigator);

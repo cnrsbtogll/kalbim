@@ -16,6 +16,7 @@
     "@react-native-community/masked-view": "^0.1.6",
     "firebase": "^7.9.1",
     "formik": "^2.1.2",
+    "galio-framework": "^0.6.3",
     "mobx": "^5.15.4",
     "mobx-react": "^6.1.7",
     "native-base": "^2.13.8",
