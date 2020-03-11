@@ -16,6 +16,7 @@ export default class CardShowcaseExample extends Component {
     return (
       <Container style={{backgroundColor: colors.background}}>
         <Content>
+          <Row><Text>  </Text></Row>
           <Row style={styles.row}>
             <Col style={styles.col}>
               <Text style={styles.text}>EKG & Solunum Ritmi</Text>

@@ -1,6 +1,6 @@
-import {createAppContainer} from 'react-navigation';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
-
+import React, {Component} from 'react';
+import { StyleSheet } from 'react-native'
+import {Container, Tab, Tabs, TabHeading, Text, ScrollableTab } from 'native-base';
 import colors from '../styles/colors';
 import Tab1 from './EKGModal';
 import Tab2 from './BloodPressureModal';
@@ -8,52 +8,39 @@ import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
 
+import {inject} from 'mobx-react';
 
-const MeasureTabNavigator = createMaterialTopTabNavigator(
-  {
-    EKGModal: {
-      screen: Tab1,
-      navigationOptions: {
-        title: 'EKG',
-      },
-    },
-    BloodPressureModal: {
-      screen: Tab2,
-      navigationOptions: {
-        title: 'TANSİYON',
-      },
-    },
-    BodyTemperatureModal: {
-      screen: Tab3,
-      navigationOptions: {
-        title: 'ATEŞ',
-      },
-    },
-    HeartRateModal: {
-      screen: Tab4,
-      navigationOptions: {
-        title: 'KALP RİTMİ',
-      },
-    },
-    SpoModal: {
-      screen: Tab5,
-      navigationOptions: {
-        title: 'SpO₂',
-      },
-    },
-  },
-  {
-    tabBarOptions: {
-      fontWeight: '600',
-      activeTintColor: colors.white,
-      inactiveTintColor: '#889094',
-      style: {
-        backgroundColor: colors.background,
-      },
-      labelStyle: {fontSize: 11},
-    },
-    initialRouteName:"HeartRateModal"
-  },
+@inject('InitialPageStore')
+export default class MeasureModal extends Component {
+  render() {
+    const {InitialPageStore}=this.props;
+    return (
+      <Container>
+        <Tabs 
+        initialPage={InitialPageStore.initialPage}
+        >
+          <Tab heading="EKG" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>
+            <Tab1 />
+          </Tab>
+          <Tab heading="Tansiyon" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>
+            <Tab2 />
+          </Tab>
+          <Tab heading="Ateş" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>
+            <Tab3 />
+          </Tab>
+          <Tab heading="Kalp Ritmi" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>
+            <Tab4 />
+            </Tab>
+            <Tab heading="SpO₂" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>          
+            <Tab5 />
+          </Tab>
+        </Tabs>
+      </Container>
+
+    );
+  }
+} 
+
+const styles = StyleSheet.create({
   
-);
-export default createAppContainer(MeasureTabNavigator);
+})

@@ -70,6 +70,7 @@ export default class BloodPressureModal extends Component {
     return (
       <Grid style={{backgroundColor:colors.background}}>
         <Content>
+        <Row><Text>  </Text></Row>
         <Row>
           <Col style={styles.col}>
             <Text style={styles.text}>Büyük Tansiyon</Text>

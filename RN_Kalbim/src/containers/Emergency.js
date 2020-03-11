@@ -34,7 +34,7 @@ export default class Emergency extends Component {
             text="112'yi Ara"
             icon={
               <Image
-                source={require('../img/acil.png')}
+                source={require('../img/MetroUI-Other-Phone-icon.png')}
                 style={{alignSelf:'center'}}
               />
             }

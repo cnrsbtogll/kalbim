@@ -5,15 +5,16 @@ configure( {
 })
 
 class InitialPageStore{
-  // observable(initialPage);
-  @observable initialPage=""
+  
+  @observable initialPage=0
 
   constructor(){
     autorun(()=>{console.log(`InitialStore.initialPage= "${this.initialPage}"`)})
   } 
 
-  @action changeName  ( value ) {
+  @action changePage  ( value ) {
     this.initialPage=value
   }
-}
+  }
+
 export default new InitialPageStore() 

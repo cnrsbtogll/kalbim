@@ -3,6 +3,5 @@ import InitialPageStore from './InitialPageStore'
 
 export default{
     AuthStore,
-    InitialPageStore,
-    ProfileStore
+    InitialPageStore
 }

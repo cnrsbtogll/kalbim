@@ -16,7 +16,7 @@ import colors from '../styles/colors';
 
 import {inject} from 'mobx-react'
 
- @inject('AuthStore')
+@inject('AuthStore')
 export default class Profile extends Component {
   render() {
     return (
@@ -46,7 +46,8 @@ export default class Profile extends Component {
           </ListItem>
           <ListItem 
           icon
-          onPress={() => alert('Hakkında çalışıyor!')}
+          onPress={() => {              
+            this.props.navigation.navigate('About')}}
           >
             <Left>
               <Button style={{backgroundColor: '#007AFF'}}>
