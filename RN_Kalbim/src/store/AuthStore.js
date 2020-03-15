@@ -1,81 +1,127 @@
-import {observable, action} from 'mobx'
-import AsyncStorage from '@react-native-community/async-storage'
+import {observable, action} from 'mobx';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // navigation service
 import NavigationService from '../NavigationService';
 
-class AuthStore{
-	@observable token = null;
-	@observable deviceID=null;
+class AuthStore {
+  @observable mail = null;
+  @observable image = null;
+  @observable id = null;
+  @observable name = 'Misafir!';
+  @observable phone = null;
 
-	// @action async saveDeviceID(deviceID){
-    //     try {
-	// 		await AsyncStorage.setItem('deviceID',deviceID);
-    //         await this.setupAuth();
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-    @action async saveToken(token){
-        try {
-			await AsyncStorage.setItem('token',token);
-            await this.setupAuth();
-        } catch (e) {
-            console.log(e);
-        }
-	}
-	// @action async removeDeviceID(){
-	// 	try{
-	// 		await AsyncStorage.removeItem('deviceID');
-	// 		this.deviceID = null;
-	// 		await this.setupAuth();
-	// 	}catch (e) {
-	// 		console.log(e);
-	// 	}
-	// }
-    @action async removeToken(){
-		try{
-			await AsyncStorage.removeItem('token');
-			this.token = null;
-			await this.setupAuth();
-		}catch (e) {
-			console.log(e);
-		}
-	}
+  
+  @action async saveMail(mail) {
+    try {
+      await AsyncStorage.setItem('mail', mail);
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async saveID(id) {
+    try {
+      await AsyncStorage.setItem('id', id);
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async saveName(name) {
+    if (!name) {
+      name = 'Misafir';
+    }
+    try {
+      await AsyncStorage.setItem('name', name);
+      await this.setupAuth();
+    } catch (e) {
+		this.name = 'Error';
+      console.log(e);
+    }
+  }
+  @action async removeMail() {
+    try {
+      await AsyncStorage.removeItem('mail');
+      this.mail = null;
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async removeID() {
+    try {
+      await AsyncStorage.removeItem('id');
+      this.id = null;
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async removeName() {
+    try {
+      await AsyncStorage.removeItem('name');
+      this.name = null;
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async removeID() {
+    try {
+      await AsyncStorage.removeItem('id');
+      this.id = null;
+      await this.setupAuth();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  @action async setupAuth() {
+    await this.getID();
+  }  
+//   @action async getMail() {
+//     try {
+//       const mail = await AsyncStorage.getItem('mail');
+//       if (!mail) {
+//         NavigationService.navigate('Auth');
+//         return false;
+//       }
 
-	@action async setupAuth(){
-		//await this.getDeviceID();
-		await this.getToken();
-	}
+//       this.mail = mail;
+//       NavigationService.navigate('App');
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   }
 
-	// @action async getDeviceID(){
-	// 	try{
-	// 		const token = await AsyncStorage.getItem('DeviceID');
-	// 		if (!DeviceID) {
-	// 		  NavigationService.navigate('Auth');
-	// 			return false;
-	// 		}
-
-	// 		this.DeviceID = DeviceID;
-	// 		NavigationService.navigate('App');
-	// 	}catch (e) {
-	// 		console.log(e);
-	// 	}
-	// }
-	@action async getToken(){
-		try{
-			const token = await AsyncStorage.getItem('token');
-			if (!token) {
-			  NavigationService.navigate('Auth');
-				return false;
-			}
-
-			this.token = token;
-			NavigationService.navigate('App');
-		}catch (e) {
-			console.log(e);
-		}
-	}
+  @action async getID() {
+    try {
+      const id = await AsyncStorage.getItem('id');
+      if (!id) {
+        NavigationService.navigate('Auth');
+        return false;
+      }
+      this.id = id;
+      NavigationService.navigate('App');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+//   @action async getName() {
+//     try {
+// 		debugger
+//       const name = await AsyncStorage.getItem('name');
+//       if (!name) {
+//         this.name = 'Misafir';
+//       } else {
+//         this.name = name;
+//       }
+//     } catch (e) {
+//       this.name = 'Error';
+//       console.log(e);
+//     }
+//     return name;
+//   }
 }
 
 export default new AuthStore();

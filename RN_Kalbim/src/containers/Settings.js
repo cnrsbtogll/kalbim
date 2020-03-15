@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Keyboard } from 'react-native'
 import {
   Container,
   Left,
@@ -42,6 +43,7 @@ export default class Settings extends Component {
     });
   }
   render() {
+    Keyboard.dismiss();
     return (
       <Container style={{backgroundColor: colors.containercolor}}>
         <Content>

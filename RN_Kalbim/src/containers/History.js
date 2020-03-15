@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image} from 'react-native';
+import {Image,Keyboard} from 'react-native';
 import {
   Container,
   Header,
@@ -18,6 +18,7 @@ import {
 import colors from '../styles/colors';
 export default class CardItemButton extends Component {
   render() {
+    Keyboard.dismiss();
     return (
       <Container style={{backgroundColor: colors.containercolor}}>
         <Header transparent>

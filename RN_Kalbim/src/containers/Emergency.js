@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image, Linking} from 'react-native';
+import {StyleSheet, Image,Keyboard, Linking} from 'react-native';
 import {
   Container,
   Header,
@@ -21,6 +21,7 @@ export default class Emergency extends Component {
     Linking.openURL(phoneNumber);
     }
   render() {
+    Keyboard.dismiss();
     //const uri = ;
     return (
       <Container style={{backgroundColor: colors.containercolor}}>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Container,Spinner,Text, View } from 'native-base';
 import colors from '../../styles/colors'
-import {inject} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
 
+@observer
 @inject('AuthStore')
 export default class AuthLoading extends Component {
 	async componentDidMount() {

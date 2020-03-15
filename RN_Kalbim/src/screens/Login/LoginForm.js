@@ -14,16 +14,13 @@ import {Formik} from 'formik';
 import colors from '../../styles/colors';
 import * as firebase from 'firebase';
 import validations from './validations';
-import DeviceInfo, { getDeviceId } from 'react-native-device-info';
-
 import {observer, inject} from 'mobx-react';
 
-@inject('AuthStore')
 @observer
+@inject('AuthStore')
 export default class LoginForm extends Component {
   _handleSubmit = async ({email, password}, bag) => {
-    try {
-      debugger
+    try {      
        await firebase.auth()
         .signInWithEmailAndPassword(email, password)
         .then(this.onLoginSuccess.bind(this))
@@ -48,12 +45,19 @@ export default class LoginForm extends Component {
   };
 
   onLoginSuccess = async () =>{
-    const mToken = await firebase.auth().currentUser.getIdToken(true);    
-    //const deviceID=DeviceInfo.getUniqueID(); 
-    //debugger   
     this.props.navigation.navigate('Home');
-    this.props.AuthStore.saveToken(mToken);
+    //const mToken = await firebase.auth().currentUser.getIdToken(true);    
+    //const deviceID=DeviceInfo.getUniqueID(); 
+    const userMail=await firebase.auth().currentUser.email; 
+    const userID = await firebase.auth().currentUser.uid;  
+    const userName = await firebase.auth().currentUser.displayName;  
+    // if(userName == "")
+    // userName = "Misafir";
+    //this.props.AuthStore.saveToken(mToken);
     //this.props.AuthStore.saveDeviceID(deviceID);
+    this.props.AuthStore.saveMail(userMail);
+    this.props.AuthStore.saveID(userID);
+    this.props.AuthStore.saveName(userName);
   }
   render() {
     return (
@@ -83,7 +87,6 @@ export default class LoginForm extends Component {
                   onChangeText={handleChange('email')}
                   value={values.email}
                   placeholder="e-mail"
-                  Text="cnr@gmail.com"
                   style={styles.input}
                   onBlur={() => setFieldTouched('email')}
                   autoCapitalize={'none'}

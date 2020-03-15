@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {StyleSheet,Keyboard, Image} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import MyBoxButton from '../components/MyBoxButton';
 import colors from '../styles/colors';
@@ -10,7 +10,9 @@ import {Container} from 'native-base';
 @observer
 @inject('InitialPageStore')
 export default class Measure extends Component {
+  
   render() {
+    Keyboard.dismiss();
     const {InitialPageStore} = this.props;
     return (
       <Container>

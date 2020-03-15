@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {Keyboard, Image} from 'react-native';
 import {
   Container,
   Header,
@@ -21,6 +21,7 @@ import colors from '../styles/colors';
 
 export default class About extends Component {
   render() {
+    Keyboard.dismiss();
     var firstImage = require('../img/healthcare.png');
     return (
       <Container style={{backgroundColor: colors.containercolor}}>

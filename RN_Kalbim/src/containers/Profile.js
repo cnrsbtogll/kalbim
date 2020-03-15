@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Keyboard } from 'react-native'
 import {
   Container,
   Header,
@@ -19,6 +20,7 @@ import {inject} from 'mobx-react'
 @inject('AuthStore')
 export default class Profile extends Component {
   render() {
+    Keyboard.dismiss()
     return (
       <Container style={{backgroundColor: colors.containercolor}}>
         <Header transparent >
@@ -63,7 +65,7 @@ export default class Profile extends Component {
           </ListItem>
           <ListItem 
           icon
-          onPress={() => this.props.AuthStore.removeToken()}
+          onPress={() => this.props.AuthStore.removeID()}
           >
             <Left>
               <Button style={{backgroundColor: colors.redgoogleloginbutton}}>
