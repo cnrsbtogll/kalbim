@@ -1,16 +1,16 @@
 import React, {Component} from 'react';
 import {
   AsyncStorage,
-  Keyboard,
   TouchableHighlight,
   Alert,
   ActivityIndicator,
-  Modal,
 } from 'react-native';
 import HomeTabRouter from '../../containers/HomeTabRouter';
+import AccountInfo from '../AccountInfo'
 import ImagePicker from 'react-native-image-picker';
 import firebase from 'firebase';
 import colors from '../../styles/colors';
+import AuthStore from '../../store/AuthStore'
 
 import {
   Container,
@@ -22,15 +22,9 @@ import {
   Left,
   Text,
   View,
-  Content,
-  Form,
-  Item,
-  Label,
-  Input,
 } from 'native-base';
 import {Avatar} from 'react-native-elements';
 import {observer, inject} from 'mobx-react';
-import AuthStore from '../../store/AuthStore';
 
 const options = {
   title: 'Fotoğraf Seç',
@@ -136,8 +130,8 @@ export default class Home extends Component {
       xhr.send(null);
     });
   };
-  handleChange = key => val => {
-    this.setState({[key]: val});
+  handleChange = key=> val => {
+    this.setState({[key]: val})
   };
   submitForm = async () => {
     if (this.state.name.length < 3) {
@@ -147,9 +141,8 @@ export default class Home extends Component {
     } else {
       //save user data
       await AsyncStorage.setItem('userPhone', this.state.phone);
-      AuthStore.phone = this.state.phone;
-      AuthStore.name=this.state.name;
-      AuthStore.saveName(this.state.name);
+      AuthStore._setName(this.state.name)
+      AuthStore._setPhone(this.state.phone)
       this.updateUser();      
       this.setModalVisible(!this.state.modalVisible);
       //Alert.alert('Başarılı', `Bilgileriniz  ${AuthStore.name} başarıyla kaydedildi`);
@@ -175,67 +168,9 @@ export default class Home extends Component {
                 />
               )}
             </Button>
-            <View style={{marginTop: 22}}>
-              <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                  Alert.alert('Modal has been closed.');
-                }}>
-                <Container>
-                  <Content>
-                    <Form>
-                      <Item floatingLabel>
-                        <Label>Ad Soyad</Label>
-                        <Input
-                          value={this.state.name}
-                          onChangeText={this.handleChange('name')}
-                          autoCorrect={true}
-                          autoFocus={true}
-                        />
-                      </Item>
-                      <Item floatingLabel>
-                        <Label>Telefon(Başında sıfır olmadan)</Label>
-                        <Input
-                          keyboardType="phone-pad"
-                          value={this.state.phone}
-                          onChangeText={this.handleChange('phone')}
-                        />
-                      </Item>
-                      <Button
-                        style={{
-                          marginTop: 30,
-                          marginLeft: 30,
-                          marginRight: 30,
-                          justifyContent: 'center',
-                        }}
-                        onPress={() => {
-                          this.submitForm();
-                        }}>
-                        <Text>Kaydet</Text>
-                      </Button>
-                      <Button
-                        bordered
-                        danger
-                        style={{
-                          marginTop: 5,
-                          marginLeft: 30,
-                          marginRight: 30,
-                          justifyContent: 'center',
-                        }}
-                        onPress={() => {
-                          this.setModalVisible(!this.state.modalVisible);
-                        }}>
-                        <Text>Vazgeç</Text>
-                      </Button>
-                    </Form>
-                  </Content>
-                </Container>
-              </Modal>
+            <View style={{marginTop: 22}}>              
               <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(true);
+                onPress={() => {this.props.navigation.navigate('AccountInfo')
                 }}>
                 <Text style={{color: colors.white}}>{AuthStore.name}</Text>
               </TouchableHighlight>

@@ -6,6 +6,7 @@ import AuthLoading from './screens/AuthLoading';
 
 // app stack
 import Home from './screens/Home';
+import AccountInfo from './screens/AccountInfo';
 
 //auth stack
 import Logout from './screens/Logout';
@@ -44,11 +45,20 @@ const AuthStack = createStackNavigator(
 const AppStack = createStackNavigator({
   Home: {
     screen: Home,
-    navigationOptions: {      
+    navigationOptions: {
       headerTitle: '',
-      headerShown:false,
+      headerShown: false,
       headerTintColor: 'white',
-      headerStyle: {backgroundColor: colors.tabbarcolor}
+      headerStyle: {backgroundColor: colors.tabbarcolor},
+    },
+  },
+  AccountInfo: {
+    screen: AccountInfo,
+    navigationOptions: {
+      headerTitle: 'Bilgilerim',
+      headerShown: true,
+      headerTintColor: 'white',
+      headerStyle: {backgroundColor: colors.background},
     },
   },
 });

@@ -10,6 +10,7 @@ import Emergency from './Emergency';
 import Profile from './Profile';
 import Settings from './Settings';
 import About from './About';
+import AccountInfo from '../screens/AccountInfo'
 import colors from '../styles/colors';
 
 const MeasureStack = createStackNavigator({
@@ -93,7 +94,17 @@ const ModalStack = createStackNavigator(
     },
     About:{
       screen:About,
-    }
+    },
+    AccountInfo: {
+      screen: AccountInfo,
+      navigationOptions: {
+        headerTitle: 'Bilgilerim',
+        headerShown: true,
+        headerTintColor: 'white',
+        headerStyle: {backgroundColor: colors.background},
+      },
+    },
+
   },
   {
     mode: 'modal',

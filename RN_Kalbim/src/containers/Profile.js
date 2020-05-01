@@ -29,6 +29,23 @@ export default class Profile extends Component {
           </Body>
         </Header>
         <Content>
+        <ListItem 
+          icon 
+          onPress={() => {              
+            this.props.navigation.navigate('AccountInfo')}}
+          >
+            <Left>
+              <Button style={{backgroundColor: '#5cb85c'}}>
+                <Icon active name="ios-person" />
+              </Button>
+            </Left>
+            <Body>
+              <Text style={{color: colors.white}}>Bilgilerim</Text>
+            </Body>
+            <Right>
+              <Icon active name="arrow-forward" />
+            </Right>
+          </ListItem>
           <ListItem 
           icon 
           onPress={() => {              

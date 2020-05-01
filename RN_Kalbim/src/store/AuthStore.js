@@ -5,10 +5,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import NavigationService from '../NavigationService';
 
 class AuthStore {
+  @observable id = null;
   @observable mail = null;
   @observable image = null;
-  @observable id = null;
-  @observable name = 'Misafir!';
+  @observable name = 'null';
   @observable phone = null;
 
   
@@ -122,6 +122,12 @@ class AuthStore {
 //     }
 //     return name;
 //   }
+@action _setName(newName){
+  this.name=newName;
+}
+@action _setPhone(newPhone){
+  this.phone=newPhone;
+}
 }
 
 export default new AuthStore();
