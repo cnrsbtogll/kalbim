@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Switch} from 'react-native';
 import {
   Button,
   Content,
@@ -16,27 +16,41 @@ import * as firebase from 'firebase';
 import validations from './validations';
 import {observer, inject} from 'mobx-react';
 
-@observer
-@inject('AuthStore')
 export default class LoginForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      is_doctor: false
+    }
+  }
+  
   _handleSubmit = async ({email, password}, bag) => {
-    try {      
-       await firebase.auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(this.onLoginSuccess.bind(this))
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-          if (errorCode === 'auth/user-not-found') {
-            alert('Kayıtlı mail adresi bulunamadı. Lütfen kayıt olun.');
-          } else if (errorCode === 'auth/wrong-password') {
-            alert('Şifre hatalı.');
-          }
-        });
-        bag.setSubmitting(false);
-      
+    try {
+      let is_doctor = this.state.is_doctor; 
+      await firebase.auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        if(is_doctor){
+          let doc_ref = firebase.database().ref("Doctor").child(firebase.auth().currentUser.uid);
+          doc_ref.once('value', snap => {
+            if(!snap.exists()) is_doctor = false;
+          })
+        }
+        this.setState({is_doctor});
+        this.onLoginSuccess()
+      })
+      .catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        if (errorCode === 'auth/user-not-found') {
+          alert('Kayıtlı mail adresi bulunamadı. Lütfen kayıt olun.');
+        } else if (errorCode === 'auth/wrong-password') {
+          alert('Şifre hatalı.');
+        }
+      });
+      bag.setSubmitting(false);
     } catch (e) {
       bag.setSubmitting(false);
 			bag.setErrors(e)
@@ -45,19 +59,12 @@ export default class LoginForm extends Component {
   };
 
   onLoginSuccess = async () =>{
-    this.props.navigation.navigate('Home');
     //const mToken = await firebase.auth().currentUser.getIdToken(true);    
     //const deviceID=DeviceInfo.getUniqueID(); 
     const userMail=await firebase.auth().currentUser.email; 
     const userID = await firebase.auth().currentUser.uid;  
     const userName = await firebase.auth().currentUser.displayName;  
-    // if(userName == "")
-    // userName = "Misafir";
-    //this.props.AuthStore.saveToken(mToken);
-    //this.props.AuthStore.saveDeviceID(deviceID);
-    this.props.AuthStore.saveMail(userMail);
-    this.props.AuthStore.saveID(userID);
-    this.props.AuthStore.saveName(userName);
+    this.props.navigation.navigate('Home', {is_doctor:this.state.is_doctor});
   }
   render() {
     return (
@@ -119,6 +126,17 @@ export default class LoginForm extends Component {
                   <Text style={{color: 'red'}}>{errors.password}</Text>
                 )}
               </Item>
+              <View style={{flexDirection:'row', alignItems:'center', justifyContent:'flex-start'}}>                  
+                <Switch
+                    trackColor={{ false: "#8f8f8f", true: "#8f8f8f" }}
+                    thumbColor={this.state.is_doctor ? "#64ef64" : "#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={() => this.setState({is_doctor:!this.state.is_doctor})}
+                    value={this.state.is_doctor}/>
+                <Text style={{color:'#ccc', fontSize:14, fontWeight:'600', letterSpacing:1.1}}>
+                  Ben Doktorum!
+                </Text>
+              </View>
               <Button
                 rounded
                 block

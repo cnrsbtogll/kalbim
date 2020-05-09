@@ -14,10 +14,8 @@ import {
   Title,
 } from 'native-base';
 import colors from '../styles/colors';
+import firebase from "../Firebase";
 
-import {inject} from 'mobx-react'
-
-@inject('AuthStore')
 export default class Profile extends Component {
   render() {
     Keyboard.dismiss()
@@ -29,23 +27,6 @@ export default class Profile extends Component {
           </Body>
         </Header>
         <Content>
-        <ListItem 
-          icon 
-          onPress={() => {              
-            this.props.navigation.navigate('AccountInfo')}}
-          >
-            <Left>
-              <Button style={{backgroundColor: '#5cb85c'}}>
-                <Icon active name="ios-person" />
-              </Button>
-            </Left>
-            <Body>
-              <Text style={{color: colors.white}}>Bilgilerim</Text>
-            </Body>
-            <Right>
-              <Icon active name="arrow-forward" />
-            </Right>
-          </ListItem>
           <ListItem 
           icon 
           onPress={() => {              
@@ -82,7 +63,7 @@ export default class Profile extends Component {
           </ListItem>
           <ListItem 
           icon
-          onPress={() => this.props.AuthStore.removeID()}
+          onPress={() => firebase.auth().signOut()}
           >
             <Left>
               <Button style={{backgroundColor: colors.redgoogleloginbutton}}>

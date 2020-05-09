@@ -7,13 +7,12 @@ import LineChart from '../components/LineChart';
 import {observer, inject} from 'mobx-react';
 import {Container} from 'native-base';
 
-@observer
-@inject('InitialPageStore')
 export default class Measure extends Component {
-  
+  constructor(props){
+    super(props);
+  }
   render() {
     Keyboard.dismiss();
-    const {InitialPageStore} = this.props;
     return (
       <Container>
         <Row size={1} style={styles.boxes}>
@@ -26,7 +25,6 @@ export default class Measure extends Component {
             backgroundColor={colors.background}
             handleOnPress={() => {              
               this.props.navigation.navigate('MeasureModal');
-              InitialPageStore.changePage(0)
             }}></MyBoxButton>
         </Row>
         <Row size={1} style={styles.boxes}>
@@ -43,7 +41,6 @@ export default class Measure extends Component {
               backgroundColor={colors.background}
               handleOnPress={() => {
                 this.props.navigation.navigate('MeasureModal');
-                InitialPageStore.changePage(1)
               }}
             />
           </Col>
@@ -60,7 +57,6 @@ export default class Measure extends Component {
               backgroundColor={colors.background}
               handleOnPress={() => {
                 this.props.navigation.navigate('MeasureModal');
-                InitialPageStore.changePage(2)
               }}
             />
           </Col>
@@ -79,7 +75,6 @@ export default class Measure extends Component {
               backgroundColor={colors.background}
               handleOnPress={() => {
                 this.props.navigation.navigate('MeasureModal');
-                InitialPageStore.changePage(3)
               }}
             />
           </Col>
@@ -96,7 +91,6 @@ export default class Measure extends Component {
               backgroundColor={colors.background}
               handleOnPress={() => {
                 this.props.navigation.navigate('MeasureModal');
-                InitialPageStore.changePage(4)
               }}
             />
           </Col>

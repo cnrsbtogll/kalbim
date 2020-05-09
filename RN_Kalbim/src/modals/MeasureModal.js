@@ -8,17 +8,11 @@ import Tab3 from './BodyTemperatureModal';
 import Tab4 from './HeartRateModal';
 import Tab5 from './SpoModal';
 
-import {inject} from 'mobx-react';
-
-@inject('InitialPageStore')
 export default class MeasureModal extends Component {
   render() {
-    const {InitialPageStore}=this.props;
     return (
       <Container>
-        <Tabs 
-        initialPage={InitialPageStore.initialPage}
-        >
+        <Tabs>
           <Tab heading="EKG" tabStyle={{backgroundColor: colors.background}} textStyle={{color: 'gray'}} activeTabStyle={{backgroundColor: colors.background}} activeTextStyle={{color: colors.white, fontWeight: 'normal'}}>
             <Tab1 />
           </Tab>
@@ -40,7 +34,3 @@ export default class MeasureModal extends Component {
     );
   }
 } 
-
-const styles = StyleSheet.create({
-  
-})

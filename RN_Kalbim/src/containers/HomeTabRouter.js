@@ -10,27 +10,24 @@ import Emergency from './Emergency';
 import Profile from './Profile';
 import Settings from './Settings';
 import About from './About';
-import AccountInfo from '../screens/AccountInfo'
 import colors from '../styles/colors';
 
 const MeasureStack = createStackNavigator({
   Measure:{
     screen:Measure,
     navigationOptions: {
-       headerShown:false,
-       },
+      headerShown:false,
+    },
   },  
   MeasureModal:{
     screen:MeasureModal,
     navigationOptions: { 
-         headerShown:false,
-       },
-    
+      headerShown:false,
+    },
   },  
 })
 
-const HomeTabRouter = createBottomTabNavigator(
-  {
+const HomeTabRouter = createBottomTabNavigator({
     Measure: {
       screen: MeasureStack,
       navigationOptions: {
@@ -94,17 +91,7 @@ const ModalStack = createStackNavigator(
     },
     About:{
       screen:About,
-    },
-    AccountInfo: {
-      screen: AccountInfo,
-      navigationOptions: {
-        headerTitle: 'Bilgilerim',
-        headerShown: true,
-        headerTintColor: 'white',
-        headerStyle: {backgroundColor: colors.background},
-      },
-    },
-
+    }
   },
   {
     mode: 'modal',
