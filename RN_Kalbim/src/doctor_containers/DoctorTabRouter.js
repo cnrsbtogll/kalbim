@@ -9,7 +9,7 @@ import Messages from './Messages';
 import About from './About';
 import colors from '../styles/colors';
 
-// @hbt1903
+//  
 // doktor için tab bar ve routelarının tanımı
 const DoctorTabRouter = createBottomTabNavigator(
   {

@@ -5,7 +5,7 @@ import Router from './src/Router';
 import firebase from "./src/Firebase";
 console.disableYellowBox = true;
 
-// @hbt1903
+//  
 // App'i sadeleştirdim, Firebase'i dediğim gibi başka js dosyasında initialize ettim 
 // App ile aynı anda initialize etmeye çalışınca bazen sorun çıkıyordu 
 

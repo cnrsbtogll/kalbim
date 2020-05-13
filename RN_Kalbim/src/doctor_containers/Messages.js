@@ -6,12 +6,12 @@ import colors from '../styles/colors';
 import firebase from '../Firebase';
 import { Input, Divider } from 'react-native-elements';
 
-// @hbt1903
+//  
 // Buradaki class definitionları farklı js dosyaları oluşturup içinde tutabilirsiniz karışık görüntüyü engellemek adına
 // takip etmesi kolay olsun diye tek sayfada tanımladım ben 
 
 
-// @hbt1903
+//  
 // verilen timestamp ile şu an arasındaki zaman farkını hesaplayan fonksiyon
 // mesajın ne kadar süre önce yazıldığını hesaplayıp, ona göre string döndürüyor
 var get_string = (timestamp) => {
@@ -41,7 +41,7 @@ var get_string = (timestamp) => {
 }
 
 
-// @hbt1903
+//  
 // mesajı renderlayan fonksiyon, mesajın verisinde gönderici uidsi tutuluyor.
 // bu uidye göre, gönderenin şimdiki kullanıcı olup olmadığını kontrol ediyor, ona göre sağa veya sola yaslıyor mesajı
 // yine bu koşula göre arkaplan rengi belirliyor mesaj için (farklı göndericilerin mesajları farklı renkte)
@@ -78,7 +78,7 @@ class Message extends Component{
 }
 
 
-// @hbt1903
+//  
 // Hasta ile olan mesaj sayfasının componenti
 // mesajları burada görüntüleyebiliyor, yeni mesaj yazabiliyor
 class MessageWithPatient extends Component{
@@ -94,7 +94,7 @@ class MessageWithPatient extends Component{
     this.message_box = this.message_box;
   }
 
-  // @hbt1903
+  //  
   // verilen hasta uidsi ile, şu anki doktorun arasında geçen konuşmaların referansı tanımlanıyor
   // message idlerini timestamp olarak tuttum, o yüzden keylere göre sıralıyor (en yeni mesaj en sonda görüntülenecek)
   get_messages = (p_uid) => {
@@ -103,7 +103,7 @@ class MessageWithPatient extends Component{
     let message_id = p_uid < uid ? p_uid + "_" + uid : uid + "_" + p_uid;
     message_id = "Messages/" + message_id;
     let message_ref = firebase.database().ref(message_id).orderByKey();
-    // @hbt1903
+    //  
     // eski mesajları yüklüyor
     message_ref.once('value')
     .then(snap => {
@@ -113,7 +113,7 @@ class MessageWithPatient extends Component{
         }
       })
     }).then(() => this.setState({message_loaded:true}));
-    // @hbt1903
+    //  
     // Eklenen her mesaj için database'i dinliyor, yeni veri geldiğinde state'i update ediyor
     message_ref.on("child_added", snapshot => {
       if(p_uid != snapshot.key && uid != snapshot.key){
@@ -123,7 +123,7 @@ class MessageWithPatient extends Component{
   }
 
   componentDidMount = async() => {
-    // @hbt1903
+    //  
     // Navigation ile aktardığımız için parametreleri, bu şekilde istediğimiz value'ye ulaşabiliyoruz
     let p_uid = this.props.navigation.getParam('p_uid', null);
     let name = this.props.navigation.getParam('name', null);
@@ -131,7 +131,7 @@ class MessageWithPatient extends Component{
     await this.get_messages(p_uid);
   }
 
-  // @hbt1903
+  //  
   // mesaj gönderme ve veritabanına yazma işlemini sağlayan fonksyion
   sendMessage = async() => {
     await this.setState({trying_to_send:true});
@@ -146,7 +146,7 @@ class MessageWithPatient extends Component{
       sender: uid,
       timestamp:timestamp
     });
-    // @hbt1903
+    //  
     // TextInput için ref tanımlayıp this.message_box değişkeninde tutuyorum 
     this.message_box.blur();
     this.message_box.clear();
@@ -205,7 +205,7 @@ class MessageWithPatient extends Component{
   }
 }
 
-// @hbt1903
+//  
 // Mesaj routerı (mesajlar listesi, seçilen hasta ile mesajlaşma penceresini açıyor)
 class MessageRouter extends Component{
   constructor(props){
@@ -233,7 +233,7 @@ const listItemStyle = StyleSheet.create({
 })
 
 
-// @hbt1903
+//  
 // Mesaj listesinin gösterildiği component
 class Messages extends Component {
   constructor(props){
@@ -285,7 +285,7 @@ class Messages extends Component {
 }
 
 
-// @hbt1903
+//  
 // Mesaj stack'i 
 const MessageStack = createStackNavigator({
   Messages: {

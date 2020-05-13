@@ -1,72 +1,80 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import RNSpeedometer from 'react-native-speedometer';
-import {Grid, Row, Col, Button, Content, Container} from 'native-base';
+import {Grid, Row, Col, Button, Content, Spinner} from 'native-base';
 import colors from '../styles/colors';
+import firebase from "../Firebase";
 
 export default class BloodPressureModal extends Component {
-  state = {
-    diastolic: 50,
-    systolic: 110,
-  };
+  constructor(props){
+    super(props);
+    //  
+    // state'e patient ve measurement resultları null olarak atıyoruz
+    // show_ekg ilk başta false olacak, kullanıcı butona basarsa gösterilecek
+    this.state = {
+      patient: null,
+      measurement: null,
+    }
+  }
   labels = [
-    // {
-    //   name: 'Çok Tehlikeli',
-    //   labelColor: '#ff2900',
-    //   activeBarColor: '#ff2900',
-    // },
     {
-      //name: 'Tehlikeli',
+      name: 'Çok Düşük',
       labelColor: '#ff5400',
       activeBarColor: '#ff5400',
     },
-    // {
-    //   name: 'Çok Düşük',
-    //   labelColor: '#f4ab44',
-    //   activeBarColor: '#f4ab44',
-    // },
+    
     {
-      //name: 'Dikkat',
+      name: 'Düşük',
       labelColor: '#f2cf1f',
       activeBarColor: '#f2cf1f',
-    },
-    // {
-    //   name: 'Normal',
-    //   labelColor: '#14eb6e',
-    //   activeBarColor: '#14eb6e',
-    // },
+    },    
     {
-      //name: 'Normal',
+      name: 'Normal',
       labelColor: '#00ff6b',
       activeBarColor: '#00ff6b',
-    },
-    // {
-    //   name: 'Normal',
-    //   labelColor: '#14eb6e',
-    //   activeBarColor: '#14eb6e',
-    // },
+    },    
     {
-      //name: 'Dikkat',
+      name: 'Yüksek',
       labelColor: '#f2cf1f',
       activeBarColor: '#f2cf1f',
     },
-    // {
-    //   name: 'Çok Yüksek',
-    //   labelColor: '#f4ab44',
-    //   activeBarColor: '#f4ab44',
-    // },
     {
-      //name: 'Tehlikeli',
+      name: 'Çok Yüksek',
       labelColor: '#ff5400',
       activeBarColor: '#ff5400',
-    },
-    // {
-    //   name: 'Çok Tehlikeli',
-    //   labelColor: '#ff2900',
-    //   activeBarColor: '#ff2900',
-    // },
+    }
   ];
+
+  //  
+  // verilen patient id için verileri çeken fonksiyon
+  get_patient_data = (p_uid) => {
+    let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
+    pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
+  }
+
+  //  
+  // verilen measurement id için verileri çeken fonksiyon
+  get_measurement_data = (m_uid) => {
+    let mes_ref = firebase.database().ref('Measurement/' + m_uid);
+    mes_ref.once('value')
+    .then(snap => {
+      //  
+      // Ben aşağıdaki verileri çektim, nasıl isterseniz değiştirebilirsiniz, değişken isimleri firebasedeki ile aynı olmalı
+      let {BuyukTansiyon, KucukTansiyon} = snap.val();
+      this.setState({measurement:{BuyukTansiyon, KucukTansiyon}})
+    });
+  }
+
+  //  
+  // component yüklendikten sonra, verileri çekiyoruz
+  componentDidMount = () => {
+    this.get_patient_data(firebase.auth().currentUser.uid);
+    this.get_measurement_data(firebase.auth().currentUser.uid);
+  }
+
+
   render() {
+    let {measurement} = this.state;
     return (
       <Grid style={{backgroundColor:colors.background}}>
         <Content>
@@ -96,9 +104,9 @@ export default class BloodPressureModal extends Component {
             <RNSpeedometer
               size={200}
               labels={this.labels}
-              value={this.state.systolic}
-              maxValue={180}
-              minValue={80}
+              value={measurement == null ? <Spinner style={{width:12, height:12}} size={12}/> : measurement.BuyukTansiyon}
+              minValue={0}
+              maxValue={240}
               labelStyle={{color:colors.white}}
             />
           </Col>
@@ -107,10 +115,10 @@ export default class BloodPressureModal extends Component {
             <RNSpeedometer
               size={200}
               labels={this.labels}
-              value={this.state.diastolic}
-              maxValue={140}
-              //minValue={10}
+              value={measurement == null ? <Spinner style={{width:12, height:12}} size={12}/> : measurement.KucukTansiyon}
               labelStyle={{color:colors.white}}
+              minValue={0}
+              maxValue={160}
             />
           </Col>
         </Row>

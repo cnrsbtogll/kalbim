@@ -8,12 +8,12 @@ import {Container, Spinner} from 'native-base';
 import firebase from "../../Firebase";
 
 
-// @hbt1903
+//  
 // Kayıtların gösterildiği kart componenti
 export default class RecordCard extends Component{
   constructor(props){
     super(props);
-    // @hbt1903
+    //  
     // state'e patient ve measurement resultları null olarak atıyoruz
     // show_ekg ilk başta false olacak, kullanıcı butona basarsa gösterilecek
     this.state = {
@@ -23,40 +23,40 @@ export default class RecordCard extends Component{
     }
   }
 
-  // @hbt1903
+  //  
   // show_ekg'yi true ise false, false ise true yapan fonksiyon
   toggle_ekg = () => {
     this.setState({show_ekg:!this.state.show_ekg});
   }
 
-  // @hbt1903
+  //  
   // verilen patient id için verileri çeken fonksiyon
   get_patient_data = (p_uid) => {
     let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
     pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
   }
 
-  // @hbt1903
+  //  
   // verilen measurement id için verileri çeken fonksiyon
   get_measurement_data = (m_uid) => {
     let mes_ref = firebase.database().ref('Measurement/' + m_uid);
     mes_ref.once('value')
     .then(snap => {
-      // @hbt1903
+      //  
       // Ben aşağıdaki verileri çektim, nasıl isterseniz değiştirebilirsiniz, değişken isimleri firebasedeki ile aynı olmalı
       let {BuyukTansiyon, KucukTansiyon, Ates, PR, QRS, AVL} = snap.val();
       this.setState({measurement:{BuyukTansiyon, KucukTansiyon, Ates, PR, QRS, AVL}})
     });
   }
 
-  // @hbt1903
+  //  
   // component yüklendikten sonra, verileri çekiyoruz
   componentDidMount = () => {
     this.get_patient_data(this.props.record.patient_id);
     this.get_measurement_data(this.props.record.measurement_id);
   }
 
-  // @hbt1903
+  //  
   // doktor kartlardan birine basınca, onu checked yapıyoruz ve doktor idsini o anki doktora eşitliyoruz
   handle_register_doctor = () => {
     let id = this.props.record.id;
@@ -72,7 +72,7 @@ export default class RecordCard extends Component{
       <TouchableOpacity style={{...recordStyles.container, width:width*.95}} onPress={this.handle_register_doctor}>
         <Text style={recordStyles.nameText}>
           <Text style={recordStyles.nameLabel}>Hastanın Adı: </Text>
-          {/* @hbt1903 */}
+          {/*   */}
           {/* Patient null ise spinnerı gösteriyor, yüklenince verisini gösteriyor */}
           {patient == null ? <Spinner style={{width:12, height:12}} size={12}/> : patient.FirstName + " " + patient.LastName}
         </Text>

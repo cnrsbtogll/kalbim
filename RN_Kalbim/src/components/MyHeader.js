@@ -46,7 +46,7 @@ const options = {
   noData: true,
 };
 
-// @hbt1903
+//  
 // Doktor ve hasta için farklı headerlar oluşturdum, props ile gönderilen veriye göre ikisinden birini döndürüyor
 
 class DocHeader extends Component {

@@ -4,7 +4,7 @@ import {Container} from 'native-base';
 import colors from '../styles/colors';
 import firebase from "../Firebase";
 
-// @hbt1903
+//  
 // listenin header componenti
 class ListHeader extends Component{
   render(){
@@ -30,7 +30,7 @@ const listHeaderStyle = StyleSheet.create({
   title: {fontSize:16, fontWeight:'800', letterSpacing:2},
 });
 
-// @hbt1903
+//  
 // listenin item componenti (patient verileri için)
 class ListItem extends Component{
   render(){
@@ -60,7 +60,7 @@ const listItemStyle = StyleSheet.create({
   info: {fontSize:14, fontWeight:'800', letterSpacing:2},
 });
 
-// @hbt1903
+//  
 // Hastalarım componenti
 export default class MyPatients extends Component {
   constructor(props){
@@ -71,7 +71,7 @@ export default class MyPatients extends Component {
     }
   }
 
-  // @hbt1903
+  //  
   // hasta listesini ve hasta verilerini alan fonksiyon
   // boş bir obje tanımlayıp, {uid1:{data1}, uid2:{data2}} şeklinde tutuyoruz
   // doktor tablosunda, şu anki doktoru bulup (Doctor/uid) bunun hastalarına erişiyoruz (Doctor/uid/PatientDetails)

@@ -1,17 +1,51 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import {Grid, Row, Col, Button, Content} from 'native-base';
+import {Grid, Row, Col, Button, Content,Spinner} from 'native-base';
 import colors from '../styles/colors';
+import firebase from "../Firebase";
 
 const MAX_POINTS_TEMPERATURE = 40;
 export default class BodyTemperatureModal extends Component {
-  state = {
-    temperature: 37,
-  };
+  constructor(props){
+    super(props);
+    //  
+    // state'e patient ve measurement resultları null olarak atıyoruz
+    // show_ekg ilk başta false olacak, kullanıcı butona basarsa gösterilecek
+    this.state = {
+      patient: null,
+      measurement: {Ates:0},
+    }
+  }
+   //  
+  // verilen patient id için verileri çeken fonksiyon
+  get_patient_data = (p_uid) => {
+    let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
+    pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
+  }
+
+  //  
+  // verilen measurement id için verileri çeken fonksiyon
+  get_measurement_data = (m_uid) => {
+    let mes_ref = firebase.database().ref('Measurement/' + m_uid);
+    mes_ref.once('value')
+    .then(snap => {
+      //  
+      // Ben aşağıdaki verileri çektim, nasıl isterseniz değiştirebilirsiniz, değişken isimleri firebasedeki ile aynı olmalı
+      let {Ates} = snap.val();
+      this.setState({measurement:{Ates}})
+    });
+  }
+
+  //  
+  // component yüklendikten sonra, verileri çekiyoruz
+  componentDidMount = () => {
+    this.get_patient_data(firebase.auth().currentUser.uid);
+    this.get_measurement_data(firebase.auth().currentUser.uid);
+  }
   render() {
-    const fill_temperature =
-      (this.state.temperature / MAX_POINTS_TEMPERATURE) * 100;
+    let {measurement} = this.state;
+    const fill_temperature = (measurement.Ates / MAX_POINTS_TEMPERATURE) * 100;
     return (
       <Grid style={{backgroundColor:colors.background}}>
         <Content>
@@ -39,7 +73,7 @@ export default class BodyTemperatureModal extends Component {
             duration={3000}>
             {fill_temperature => (
               <Text style={styles.points}>
-                {Math.round((MAX_POINTS_TEMPERATURE * fill_temperature) / 100)}{' '}
+                {(MAX_POINTS_TEMPERATURE * fill_temperature) / 100}{' '}
                 °C
               </Text>
             )}

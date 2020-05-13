@@ -2,7 +2,7 @@ import React from 'react'
 import { LineChart, Grid } from 'react-native-svg-charts'
 import colors from '../styles/colors'
  
-// @hbt1903
+//  
 // Linechart'a props ile veri gönderildiyse o veriyi kullanıyor, yoksa sizin default verinizi kullanıyor
 export default class SpoModal extends React.PureComponent {
  
@@ -16,7 +16,7 @@ export default class SpoModal extends React.PureComponent {
             <LineChart
                 style={{ height: 200 }}
                 data={ data }
-                svg={{ stroke: colors.white, }}
+                svg={{ stroke: colors.iconcolor, }}
                 contentInset={{ top: 20, bottom: 20 }}>
                 <Grid/>
             </LineChart>

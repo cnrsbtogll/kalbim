@@ -3,15 +3,49 @@ import {StyleSheet, Text} from 'react-native';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {Grid, Row, Col, Button, Content} from 'native-base';
 import colors from '../styles/colors';
+import firebase from "../Firebase";
 
 const MAX_POINTS_TEMPERATURE = 100;
 export default class SpoModal extends Component {
-  state = {
-    temperature: 90,
-  };
+  constructor(props){
+    super(props);
+    //  
+    // state'e patient ve measurement resultları null olarak atıyoruz
+    // show_ekg ilk başta false olacak, kullanıcı butona basarsa gösterilecek
+    this.state = {
+      patient: null,
+      measurement: {Oksijen:0},
+    }
+  }
+   //  
+  // verilen patient id için verileri çeken fonksiyon
+  get_patient_data = (p_uid) => {
+    let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
+    pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
+  }
+
+  //  
+  // verilen measurement id için verileri çeken fonksiyon
+  get_measurement_data = (m_uid) => {
+    let mes_ref = firebase.database().ref('Measurement/' + m_uid);
+    mes_ref.once('value')
+    .then(snap => {
+      //  
+      // Ben aşağıdaki verileri çektim, nasıl isterseniz değiştirebilirsiniz, değişken isimleri firebasedeki ile aynı olmalı
+      let {Oksijen} = snap.val();
+      this.setState({measurement:{Oksijen}})
+    });
+  }
+
+  //  
+  // component yüklendikten sonra, verileri çekiyoruz
+  componentDidMount = () => {
+    this.get_patient_data(firebase.auth().currentUser.uid);
+    this.get_measurement_data(firebase.auth().currentUser.uid);
+  }
   render() {
-    const fill_temperature =
-      (this.state.temperature / MAX_POINTS_TEMPERATURE) * 100;
+    let {measurement} = this.state;
+    const fill_temperature = (measurement.Oksijen / MAX_POINTS_TEMPERATURE) * 100;
     return (
       <Grid style={{backgroundColor:colors.background}}>
         <Content>
