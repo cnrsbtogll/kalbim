@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image,Keyboard, Text, FlatList, View, Dimensions, StyleSheet} from 'react-native';
+import {Image,Keyboard, Text, FlatList, View, Dimensions, StyleSheet, TouchableOpacity} from 'react-native';
 import {Container} from 'native-base';
 import colors from '../styles/colors';
 import firebase from "../Firebase";
@@ -33,13 +33,26 @@ const listHeaderStyle = StyleSheet.create({
 //  
 // listenin item componenti (patient verileri için)
 class ListItem extends Component{
+  navigate_to_messages=async()=>{
+    let navigation=this.props.navigation;
+    let p_uid=this.props.id;
+    console.log(this.props);
+    let uid = firebase.auth().currentUser.uid;
+    let my_name = firebase.auth().currentUser.displayName;
+    let name = this.props.patient.FirstName + " " + this.props.patient.LastName;
+    let message_id = p_uid < uid ? p_uid + "_" + uid : uid + "_" + p_uid;
+    let mes_ref = firebase.database().ref("Messages/" + message_id);
+    mes_ref.update({[p_uid]:name, [uid]:my_name});
+    navigation.navigate("MessageWithPatient", {"p_uid":p_uid, 'name': name});
+  }
   render(){
     let {patient, index} = this.props;
+    console.log(patient, index);
     let evenColor = '#886';
     let oddColor = '#aa8';
     let containerStyle = index % 2 == 0 ? {...listItemStyle.container, backgroundColor:evenColor} : {...listItemStyle.container, backgroundColor:oddColor}
     return(
-      <View style={containerStyle}>
+      <TouchableOpacity style={containerStyle} onPress={this.navigate_to_messages}>
         <View style={listItemStyle.titleContainer}>
           <Text style={listItemStyle.info}>{patient.FirstName}</Text>
         </View>
@@ -49,7 +62,7 @@ class ListItem extends Component{
         <View style={listItemStyle.titleContainer}>
           <Text style={listItemStyle.info}>{patient.Gender}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -68,6 +81,7 @@ export default class MyPatients extends Component {
     this.state={
       patients_loaded: false,
       patient_details: {},
+      patient_ids:[]
     }
   }
 
@@ -97,6 +111,9 @@ export default class MyPatients extends Component {
   render() {
     let {width, height} = Dimensions.get('window');
     let {patient_details, patients_loaded} = this.state;
+    let ids = Object.keys(patient_details);
+    let details = Object.values(patient_details);
+    let {navigation}= this.props;
     Keyboard.dismiss();
     return (
       <Container style={{backgroundColor: colors.containercolor, alignItems:'center'}}>
@@ -105,10 +122,10 @@ export default class MyPatients extends Component {
           {Object.values(patient_details).length == 0 ? 
             <Text style={{color:'#ccc'}}>Şu anda hiç hastanız yok!</Text>
             :<FlatList 
-              data={Object.values(patient_details)} 
+              data={details} 
               keyExtractor={(item, index) => index}
               ListHeaderComponent = {() => <ListHeader/>}
-              renderItem = {(item, index) => <ListItem patient={item.item} index={item.index}/>}
+              renderItem = {(item, index) => <ListItem patient={item.item} id={ids[item.index]} index={item.index} navigation={navigation}/>}
             />}
         </View>
       </Container>

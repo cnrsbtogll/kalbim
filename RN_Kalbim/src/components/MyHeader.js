@@ -6,6 +6,7 @@ import {
   Alert,
   ActivityIndicator,
   Modal,
+  Image
 } from 'react-native';
 import {ListItem, Icon} from "native-base";
 import ImagePicker from 'react-native-image-picker';
@@ -53,7 +54,7 @@ class DocHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatarSource: "../img/user.png",
+      avatarSource: "https://firebasestorage.googleapis.com/v0/b/kalbim-532f8.appspot.com/o/profile_pictures%2Fdoctor.png?alt=media&token=144f7121-6486-42bf-87f9-49d493ebf94f",
       upload: false,
       modalVisible: false, 
       phone: '',
@@ -170,7 +171,9 @@ class DocHeader extends Component {
     await firebase.auth().signOut();
   }
   render() {
+    
     if(!this.state.loaded) return <View/>
+    console.log(this.state.avatarSource);
     return (
         <Header transparent>
           <Left style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -181,7 +184,7 @@ class DocHeader extends Component {
                 <Avatar
                   size="medium"
                   rounded
-                  source={this.state.avatarSource}
+                  source={{uri:this.state.avatarSource}}
                   onPress={this.onSelectPicture}
                   showEditButton
                   imageProps={{resizeMode: 'contain'}}
@@ -333,7 +336,7 @@ class PatientHeader extends Component {
         this.updateUserImage(url);
       })
       .catch(error => {
-        this.setState({
+        this.setState({ 
           upload: false,
           avatarSource: require('../img/user.png'),
         });

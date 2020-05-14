@@ -30,6 +30,8 @@ export default class EKGModal extends Component {
   get_patient_data = (p_uid) => {
     let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
     pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
+    let mes_ref = firebase.database().ref('Patient/' + p_uid + '/MeasurementResults').orderByKey().limitToLast(1);
+    mes_ref.once('value').then(snap => snap.forEach(mes => this.get_measurement_data(mes.val().OlcID)));
   }
 
   //  
@@ -49,7 +51,6 @@ export default class EKGModal extends Component {
   // component yüklendikten sonra, verileri çekiyoruz
   componentDidMount = () => {
     this.get_patient_data(firebase.auth().currentUser.uid);
-    this.get_measurement_data(firebase.auth().currentUser.uid);
   }
   render() {
     let {measurement} = this.state;

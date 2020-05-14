@@ -49,13 +49,16 @@ export default class BloodPressureModal extends Component {
   // verilen patient id için verileri çeken fonksiyon
   get_patient_data = (p_uid) => {
     let pat_ref = firebase.database().ref('Patient/' + p_uid + '/PatientDetails');
-    pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));
+    pat_ref.once('value').then(snap => this.setState({patient:snap.val()}));    
+    let mes_ref = firebase.database().ref('Patient/' + p_uid + '/MeasurementResults').orderByKey().limitToLast(1);
+    mes_ref.once('value').then(snap => snap.forEach(mes => this.get_measurement_data(mes.val().OlcID)));
   }
 
   //  
   // verilen measurement id için verileri çeken fonksiyon
   get_measurement_data = (m_uid) => {
-    let mes_ref = firebase.database().ref('Measurement/' + m_uid);
+    console.log(m_uid);
+    let mes_ref = firebase.database().ref('Measurement/' + m_uid );
     mes_ref.once('value')
     .then(snap => {
       //  
@@ -69,7 +72,6 @@ export default class BloodPressureModal extends Component {
   // component yüklendikten sonra, verileri çekiyoruz
   componentDidMount = () => {
     this.get_patient_data(firebase.auth().currentUser.uid);
-    this.get_measurement_data(firebase.auth().currentUser.uid);
   }
 
 

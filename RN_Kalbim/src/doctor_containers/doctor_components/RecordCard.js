@@ -60,9 +60,10 @@ export default class RecordCard extends Component{
   // doktor kartlardan birine basınca, onu checked yapıyoruz ve doktor idsini o anki doktora eşitliyoruz
   handle_register_doctor = () => {
     let id = this.props.record.id;
-    let {records} = this.props.that.state;
+    let {that} = this.props;
     let record_ref = firebase.database().ref("Records/"+id);
     record_ref.update({checked:1, doctor_id: firebase.auth().currentUser.uid}).then(() => Alert.alert("Hastayı başarılı bir şekilde eklediniz"));
+    that.fetch_records();
   }
 
   render(){
