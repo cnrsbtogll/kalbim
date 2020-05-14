@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer} from 'react-navigation';
 import MeasureModal from '../modals/MeasureModal'
 import Measure from './Measure';
-import History from './History';
+import Messages from './Messages';
 import Emergency from './Emergency';
 import Profile from './Profile';
 import Settings from './Settings';
@@ -38,12 +38,12 @@ const HomeTabRouter = createBottomTabNavigator({
         ),
       },
     },
-    History: {
-      screen: History,
+    Messages: {
+      screen: Messages,
       navigationOptions: {
-        title: 'Geçmiş',
+        title: 'Mesajlar',
         tabBarIcon: ({tintColor}) => (
-          <Icon name="history" size={22} color={tintColor} />
+          <Icon name="inbox" size={22} color={tintColor} />
         ),
       },
     },

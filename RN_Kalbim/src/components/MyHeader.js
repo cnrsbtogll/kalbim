@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {
-  AsyncStorage,
-  Keyboard,
   TouchableHighlight,
   Alert,
   ActivityIndicator,
-  Modal,
-  Image
-} from 'react-native';
-import {ListItem, Icon} from "native-base";
+  Modal} from 'react-native';
+import {Icon} from "native-base";
 import ImagePicker from 'react-native-image-picker';
 import firebase from '../Firebase';
 import colors from '../styles/colors';
-import NavigationService from "../NavigationService";
 import {
   Container,
   Header,
@@ -118,10 +113,10 @@ class DocHeader extends Component {
       .then(async(url) => {
         this.updateUserImage(url);
       })
-      .catch(error => {
+      .catch(() => {
         this.setState({
           upload: false,
-          avatarSource: require('../img/user.png'),
+          avatarSource: require('../img/doctor.png'),
         });
         Alert.alert('Hata', 'Fotoğraf yüklenirken hata oluştu.');
       });
@@ -275,11 +270,11 @@ class PatientHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      avatarSource: null,
+      avatarSource: "https://firebasestorage.googleapis.com/v0/b/kalbim-532f8.appspot.com/o/profile_pictures%2Fuser.png?alt=media&token=49e267c9-801d-42fb-8a99-4051de5b79f2",
       upload: false,
       modalVisible: false, 
       phone: '',
-      name: '',
+      name: "Yeni Hasta",
       loaded: false
     };
     console.log("app check");
@@ -317,12 +312,18 @@ class PatientHeader extends Component {
 
         // You can also display the image using data:
         //const source = { uri: 'data:../img/icons8-user-16.png;base64,' + response.data};
-        this.setState({upload: true, avatarSource: {uri: response.uri}}, this.uploadFile,);
+        this.setState(
+          {
+            upload: true, 
+            avatarSource: {uri: response.uri}
+          }, 
+          this.uploadFile,
+          );
       }
     });
   };
-  updateUserImage = imageUrl => {
-    firebase.auth().currentUser.updateProfile({photoURL:imageUrl});
+  updateUserImage = async imageUrl => {
+    await firebase.auth().currentUser.updateProfile({photoURL:imageUrl});
     this.setState({upload: false, avatarSource: {uri: imageUrl}});
   };
   uploadFile = async () => {
@@ -335,7 +336,7 @@ class PatientHeader extends Component {
       .then(url => {
         this.updateUserImage(url);
       })
-      .catch(error => {
+      .catch(() => {
         this.setState({ 
           upload: false,
           avatarSource: require('../img/user.png'),
@@ -392,7 +393,7 @@ class PatientHeader extends Component {
               <Avatar
                 size="medium"
                 rounded
-                source={this.state.avatarSource}
+                source={{uri:this.state.avatarSource}}
                 onPress={this.onSelectPicture}
                 showEditButton
                 imageProps={{resizeMode: 'contain'}}
@@ -461,7 +462,7 @@ class PatientHeader extends Component {
               onPress={() => {
                 this.setModalVisible(true);
               }}>
-              <Text style={{color: colors.white}}>{firebase.auth().currentUser.displayName}</Text>
+              <Text style={{color: colors.white}}>{this.state.name}</Text>
             </TouchableHighlight>
           </View>
         </Left>
