@@ -40,7 +40,7 @@ export default class CreateAccountForm extends Component {
         .createUserWithEmailAndPassword(email, password)
         .then(user => {
           // user oluşturulduysa, database'e veriyi yazacağım yerin referansını ayarladım
-          db_ref = db_ref + user.user.uid.toString();
+          db_ref = db_ref + firebase.auth().currentUser.uid.toString() + "/PatientDetails";
           // veriyi kaydettim ve kullanıcının displayName'ini güncelledim
           firebase.database().ref(db_ref).set(data)
           .then(() => user.user.updateProfile({displayName:data.firstName + " " + data.lastName, photoURL:'https://firebasestorage.googleapis.com/v0/b/kalbim-532f8.appspot.com/o/profile_pictures%2Fdoctor.png?alt=media&token=144f7121-6486-42bf-87f9-49d493ebf94f'}))
