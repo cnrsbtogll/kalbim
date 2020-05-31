@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KALBİM</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+      
+    </environment>
+    <environment include="Production">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+ 
+    @*<partial name="_CookieConsentPartial" />*@
+
+    <div class="container body-content" style="position: relative; margin: auto;">
+        @RenderBody()
+        <hr />
+        <footer>
+            <strong>Bu Proje 2019-2020 &ensp;<a href="~/http://www.ecg_bitirme.com">ECG Bitirme Grubu Tarafından Tasarlanmıştır</a>.</strong>
+            Tüm Haklar Saklıdır.
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/vue/vue.min.js"></script>
+        <script src="~/lib/axios/axios.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/vue/vue.min.js"></script>
+        <script src="~/lib/axios/axios.min.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

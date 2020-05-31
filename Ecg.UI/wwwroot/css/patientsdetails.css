@@ -1,0 +1,76 @@
+﻿
+* {
+    box-sizing: border-box;
+}
+
+#patientDetails {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: aqua
+}
+
+.card-title {
+    color: #42A5F5;
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: #F4511E;
+}
+
+h4 {
+    font-size: 1.25rem;
+    color: #F4511E;
+}
+/* Remove extra left and right margins, due to padding */
+.row {
+    margin: 0 -5px;
+}
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+/* Responsive columns */
+
+
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 16px;
+   
+    background-color: #f1f1f1;
+}
+
+
+
+.column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+}
+
+
+
+
+@media screen and (max-width: 750px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+  
+}
+

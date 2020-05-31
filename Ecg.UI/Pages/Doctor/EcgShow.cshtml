@@ -1,0 +1,233 @@
+﻿@page
+@model Ecg.UI.Pages.Doctor.EcgShowModel
+@{
+}
+<link href="~/css/patientsdetails.css" rel="stylesheet" />
+<div id="app" class="content">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Hasta Ölçüm Bilgileri</h1>
+        </div>
+        <h3>Hasta Bilgileri</h3>
+
+
+        <div class="row">
+            <div class="column col-md-3">
+                <div class="card">
+                    <h4>Ad</h4>
+                    <p>{{patientModel.Name}}</p>
+                </div>
+            </div>
+
+            <div class="column col-md-3">
+                <div class="card">
+                    <h4>Soyad</h4>
+                    <p>{{patientModel.LastName}}</p>
+
+                </div>
+            </div>
+
+            <div class="column col-md-2">
+                <div class="card">
+                    <h4>Cinsiyet</h4>
+                    <p>{{patientModel.Gender}}</p>
+
+                </div>
+            </div>
+
+            <div class="column col-md-2">
+                <div class="card">
+                    <h4>Doğum Yılı</h4>
+                    <p>{{patientModel.BirthDay}}</p>
+                </div>
+            </div>
+            <div class="column col-md-2">
+                <div class="card">
+                    <h4>Kilo</h4>
+                    <p>{{patientModel.Weight}}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.card-header -->
+
+        <div class="row">
+            <!-- Content Wrapper. Contains page content -->
+            <div class="col-md-12">
+                <!-- Content Header (Page header) -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Hasta Detay Bilgileri</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-head-fixed text-nowrap" style="overflow-x: hidden;">
+                            <thead>
+                                <tr>
+                                    <th>Ateş</th>
+                                    <th>Büyük Tansiyon</th>
+                                    <th>Küçük Tansiyon</th>
+                                    <th>Oksijen</th>
+                                    <th>PR</th>
+                                    <th>QRS</th>
+                                    <th>QT</th>
+                                    <th>RR</th>
+                                    <th>JTPEAK</th>
+                                    <th>TPEAKTEND</th>
+                                    <th>TPEAKTPEAKP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{measurementModel.ates}}</td>
+                                    <td>{{measurementModel.buyukTansiyon}}</td>
+                                    <td>{{measurementModel.kucukTansiyon}}</td>
+                                    <td>{{measurementModel.oksijen}}</td>
+                                    <td>{{measurementModel.pr}}</td>
+                                    <td>{{measurementModel.qrs}}</td>
+                                    <td>{{measurementModel.qt}}</td>
+                                    <td>{{measurementModel.rr}}</td>
+                                    <td>{{measurementModel.jtpeak}}</td>
+                                    <td>{{measurementModel.tpeaktend}}</td>
+                                    <td>{{measurementModel.tpeaktpeakp}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div><!-- /.container-fluid -->
+            <!-- /.content -->
+        </div>
+
+        <canvas id="chart" width="500" height="200"></canvas>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Box Comment -->
+                <div class="card card-widget">
+                    <div class="card-header">
+                        <div class="user-block">
+                            <img class="img-circle" src="../dist/img/doctor.png" alt="User Image">
+                            <span class="username"><a href="#">{{diognasisModel.Doctor}}</a></span>
+                            <span class="description">{{diognasisModel.DiognasisDate}} {{diognasisModel.diognasisTime}}</span>
+                        </div>
+                        <!-- /.user-block -->
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
+                                <i class="far fa-circle"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-1 col-form-label">Yorum</label>
+                                    <div class="col-sm-11">
+                                        <input required type="text" @@change="isContentActive=false" class="form-control" v-bind:class="{'form-control is-invalid': isContentActive  }" v-bind:readonly="diognasisModel.IsMe==='false' && diognasisModel.Doctor!=null && diognasisModel.Doctor!=''" v-model="diognasisModel.Content" id="exampleInputEmail1" placeholder="Yorum">
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-top:2%">
+                                    <label for="inputEmail3" class="col-sm-1 col-form-label">Durum</label>
+                                    <div class="col-sm-11">
+                                        <input required type="text" @@change="isStatusActive=false" v-bind:class="{'form-control is-invalid': isStatusActive  }" v-bind:readonly="diognasisModel.IsMe==='false' && diognasisModel.Doctor!=null && diognasisModel.Doctor!='' " class="form-control" v-model="diognasisModel.Status" placeholder="Durum">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-2">
+                                <div class="form-group mb-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" v-bind:disabled="diognasisModel.IsMe ==='false' && diognasisModel.Doctor!=null && diognasisModel.Doctor!=''" v-model="diognasisModel.Emergancy" name="terms1" class="custom-control-input" id="exampleCheck">
+                                        <label class="custom-control-label" for="exampleCheck">Acil Mi ?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" v-if="diognasisModel.IsMe === 'true' || diognasisModel.Doctor==null || diognasisModel.Doctor==''">
+                                <div class="form-group mb-0">
+                                    <div class="custom-control custom-checkbox">
+                                        <input required type="checkbox" @@click="togglePrice" v-bind:disabled="diognasisModel.IsMe ==='false' && diognasisModel.Doctor!=null && diognasisModel.Doctor!=''" v-model="isChecked" name="terms2" v-bind:class="{'form-control is-warning': isActive  }" class="custom-control-input" id="exampleCheck1">
+                                        <label class="custom-control-label" for="exampleCheck1"> <i v-bind:class="{'far fa-times-circle': isActive}"></i> Yazdıklarımı Kontrol Ettim</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group mb-0">
+                                    <div v-if="diognasisModel.IsMe === 'true' || diognasisModel.Doctor==null || diognasisModel.Doctor==''">
+                                        <button @@click="taniKoy" type="submit" class="btn btn-danger">{{action}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div style="overflow-y: scroll; height: 300px" class="card-footer card-comments">
+                        <!-- /.card-comment -->
+                        <div v-for="comment in comments" class="card-comment">
+                            <!-- User image -->
+                            <img class="img-circle img-sm" src="../dist/img/doctor.png" alt="User Image">
+
+                            <div class="comment-text">
+                                <span class="username">
+                                    {{comment.drID}}
+                                    <span class="text-muted float-right">{{comment.date}} - {{comment.time}}</span>
+                                </span><!-- /.username -->
+                                {{comment.comment}}
+                            </div>
+                            <!-- /.comment-text -->
+                        </div>
+                        <!-- /.card-comment -->
+                    </div>
+                    <!-- /.card-footer -->
+                    <div v-if="diognasisModel.Doctor!=null &&  diognasisModel.Doctor!=''" class="card-footer">
+                        <img class="img-fluid img-circle img-sm" src="../dist/img/comment.png" alt="Alt Text">
+                        <!-- .img-push is used to add margin to elements next to floating images -->
+                        <div class="img-push">
+                            <input type="text" class="form-control form-control-sm" v-model="commentModel.comment.Comment" placeholder="Tanıya yorum yapın">
+                        </div>
+                        <div class="card-footer">
+                            <button @@click="yorumYap" class="btn btn-primary">Yorum Yap</button>
+                        </div>
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <!-- /.col -->
+        </div>
+    </div>
+</div>
+
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<!-- AdminLTE App -->
+@section scripts{
+    <script>
+        var datas={
+        patientId : '@Model.patientId',
+        olcumId : '@Model.olcumId',
+        olcOrder : '@Model.olcOrder'
+        }
+    </script>
+    <script src="~/lib/vue/vue.min.js"></script>
+    <script src="~/lib/axios/axios.min.js"></script>
+    <script src="~/js/doctor/ecgShow.js"></script>
+}

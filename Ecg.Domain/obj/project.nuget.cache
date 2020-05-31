@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "gki38+R+uEh6+Kk38wqd8dGL0A+UNzX6cGnSFSJHz813mqniIlalI+5cWsOvoP0oo/F/El0XEEkEGVA0HDrmpw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Enes Yapmaz\\source\\repos\\Ecg\\Ecg.Domain\\Ecg.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Enes Yapmaz\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Enes Yapmaz\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
